@@ -4,7 +4,7 @@ import {
   FormGroup,
   FormLabel,
   FormControl,
-  FormSelect,
+  FormCheck,
   Button,
   Row, 
   Col,
@@ -12,16 +12,20 @@ import {
 
 
 function ReservationForm() {
+  
   const [reservation, setReservation] = useState({
     departure: "",
     arrival: "",
-    date: new Date(),
+    date: "",
+    returnDate: "",
     time: "",
     ticketCount: 0,
     ticketClass: "",
     trainId: "",
-    travellerId: "",
+    travelerId: "",
   });
+
+  const [returnTickets, setReturnTickets] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,6 +35,8 @@ function ReservationForm() {
       ...reservation,
     };
 
+    console.log(newReservation);
+
     // Send the new reservation object to the server to be created.
     // ...
 
@@ -38,21 +44,33 @@ function ReservationForm() {
     setReservation({
       departure: "",
       arrival: "",
-      date: new Date(),
+      date: "",
+      returnDate: "",
       time: "",
       ticketCount: 0,
       ticketClass: "",
       trainId: "",
-      travellerId: "",
+      travelerId: "",
     });
   };
-
+  
   const handleChange = (event) => {
     setReservation({
       ...reservation,
       [event.target.name]: event.target.value,
     });
   };
+
+  const stations = [
+    "Maradana",
+    "Colombo Fort",
+    "Kalutara",
+    "Amabalangoda",
+    "Galle",
+    "Weligama",
+    "Matara",
+    "Beliatta"
+  ];
 
   return (
     <Row>
@@ -62,164 +80,125 @@ function ReservationForm() {
           <FormGroup controlId="travelerId">
             <FormLabel>Traveler NIC</FormLabel>
             <FormControl
+              required
               type="text"
               name="travelerId"
               value={reservation.travelerId}
               onChange={handleChange}
             />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid NIC.
+            </Form.Control.Feedback>
           </FormGroup>
 
-          {/* <FormGroup controlId="departure">
+          <FormGroup controlId="departure">
             <FormLabel>Departure Station</FormLabel>
             <FormControl
-              type="text"
+              as="select"
               name="departure"
               value={reservation.departure}
               onChange={handleChange}
-            />
-          </FormGroup> */}
-
-          <FormGroup controlId="departure">
-           <FormLabel>Departure Station</FormLabel>
-           <FormSelect aria-label="Default select example">
-             <option value="1">1</option>
-             <option value="2">2</option>
-             <option value="3">3</option>
-             <option value="4">4</option>
-           </FormSelect>
-          </FormGroup>
-         
-          {/* <FormGroup controlId="arrivalStation">
-            <FormLabel>Arrival Station</FormLabel>
-            <FormControl
-              type="text"
-              name="arrivalStation"
-              value={train.arrivalStation}
-              onChange={handleChange}
-            />
-          </FormGroup> */}
-
-          <FormGroup controlId="arrival">
-           <FormLabel>Arrival Station</FormLabel>
-           <FormSelect aria-label="Default select example">
-             <option value="1">1</option>
-             <option value="2">2</option>
-             <option value="3">3</option>
-             <option value="4">4</option>
-           </FormSelect>
-          </FormGroup>
-
-          <FormGroup controlId="date">
-            <FormLabel>Date</FormLabel>
-            <FormControl
-              type="date"
-              name="date"
-              value={reservation.date}
-              onChange={handleChange}
-            />
-          </FormGroup>
-
-          {/* <FormGroup controlId="availableDates">
-            <FormLabel>Available Dates</FormLabel>
-            <FormControl
-              as="select"
-              name="availableDates"
-              multiple
-              value={train.availableDates}
-              onChange={handleAvailableDatesChange}
             >
-              {daysOfWeek.map((day) => (
-                <option key={day} value={day}>
-                  {day}
+              {stations.map((station) => (
+                <option key={station} value={station}>
+                  {station}
                 </option>
               ))}
             </FormControl>
-          </FormGroup> */}
+          </FormGroup>
+         
+          <FormGroup controlId="arrival">
+            <FormLabel>Arrival Station</FormLabel>
+            <FormControl
+              as="select"
+              name="arrival"
+              value={reservation.arrival}
+              onChange={handleChange}
+            >
+              {stations.map((station) => (
+                <option key={station} value={station}>
+                  {station}
+                </option>
+              ))}
+            </FormControl>
+          </FormGroup>
 
+          <Row>
+            <Col>
+              <FormGroup controlId="date">
+                <FormLabel>Date</FormLabel>
+                <FormControl
+                  required
+                  type="date"
+                  name="date"
+                  placeholder="Pick Date"
+                  value={reservation.date}
+                  onChange={handleChange}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please pick a date.
+                </Form.Control.Feedback>
+              </FormGroup>
+            </Col>
+
+            <Col>
+              <FormCheck
+                type="switch"
+                id="custom-switch"
+                label="Include Return Tickets"
+                onChange={() => (setReturnTickets(!returnTickets))}
+              />
+            </Col>
+
+            {returnTickets && (
+              <Col>
+                <FormGroup controlId="returnDate">
+                  <FormLabel>Return Date</FormLabel>
+                  <FormControl
+                    required
+                    type="date"
+                    name="returnDate"
+                    placeholder="Pick Return Date"
+                    value={reservation.returnDate}
+                    onChange={handleChange}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please pick a return date.
+                  </Form.Control.Feedback>
+                </FormGroup>
+              </Col>
+            )}            
+          </Row>
           
           <FormGroup controlId="ticketClass">
-           <FormLabel>Ticket Class</FormLabel>
-           <FormSelect aria-label="Default select example">
-             <option value="1">1</option>
-             <option value="2">2</option>
-             <option value="3">3</option>
-             <option value="4">4</option>
-           </FormSelect>
+            <FormLabel>Ticket Class</FormLabel>
+            <FormControl
+              as="select"
+              name="ticketClass"
+              value={reservation.ticketClass}
+              onChange={handleChange}
+            >
+              <option value="First Class">First Class</option>
+              <option value="Second Class">Second Class</option>
+              <option value="Third Class">Third Class</option>        
+            </FormControl>
           </FormGroup>
 
           <FormGroup controlId="ticketCount">
-           <FormLabel>Number of Tickets</FormLabel>
-           <FormSelect aria-label="Default select example">
-             <option value="1">1</option>
-             <option value="2">2</option>
-             <option value="3">3</option>
-             <option value="4">4</option>
-           </FormSelect>
-          </FormGroup>
-
-          
-
-          {/* <FormGroup controlId="schedules">
-            <FormLabel>Schedules</FormLabel>
-            {train.schedules.map((schedule, index) => (
-              <Row key={index} className="align-items-center">
-                <Col>
-                  <FormGroup controlId={`station-${index}`}>
-                    <FormLabel>Station</FormLabel>
-                    <FormControl
-                      type="text"
-                      name="station"
-                      value={schedule.station}
-                      onChange={(e) =>
-                        handleScheduleChange(e, index, "station")
-                      }
-                    />
-                  </FormGroup>
-                </Col>
-                <Col>
-                  <FormGroup controlId={`arrivalTime-${index}`}>
-                    <FormLabel>Arrival Time</FormLabel>
-                    <FormControl
-                      type="time"
-                      name="arrivalTime"
-                      value={schedule.arrivalTime}
-                      onChange={(e) =>
-                        handleScheduleChange(e, index, "arrivalTime")
-                      }
-                    />
-                  </FormGroup>
-                </Col>
-                <Col>
-                  <FormGroup controlId={`departureTime-${index}`}>
-                    <FormLabel>Departure Time</FormLabel>
-                    <FormControl
-                      type="time"
-                      name="departureTime"
-                      value={schedule.departureTime}
-                      onChange={(e) =>
-                        handleScheduleChange(e, index, "departureTime")
-                      }
-                    />
-                  </FormGroup>
-                </Col>
-                <Col className="col-auto">
-                  <Button
-                    variant="danger"
-                    onClick={() => deleteSchedule(index)}
-                  >
-                    Delete
-                  </Button>
-                </Col>
-              </Row>
-            ))}
-            <Row>
-              <Col className="my-3">
-                <Button variant="secondary" onClick={addSchedule}>
-                  Add Schedule
-                </Button>
-              </Col>
-            </Row>
-          </FormGroup> */}
+            <FormLabel>Number of Tickets</FormLabel>
+            <FormControl
+              as="select"
+              name="ticketCount"
+              value={reservation.ticketCount}
+              onChange={handleChange}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </FormControl>
+          </FormGroup>         
+        
           <Row className="justify-content-center">
             <Col className="col-auto my-4">
               <Button type="submit">Check Availability</Button>
