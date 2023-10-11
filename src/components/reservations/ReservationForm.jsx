@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Form,
   FormGroup,
@@ -11,47 +10,13 @@ import {
 } from "react-bootstrap";
 
 
-function ReservationForm() {
+function ReservationForm({ reservation, setReservation, returnTrip, setReturnTrip, setShowAvailability }) {
   
-  const [reservation, setReservation] = useState({
-    departure: "",
-    arrival: "",
-    date: "",
-    returnDate: "",
-    time: "",
-    ticketCount: 0,
-    ticketClass: "",
-    trainId: "",
-    travelerId: "",
-  });
-
-  const [returnTickets, setReturnTickets] = useState(false);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Create a new reservation object with the form data.
-    const newReservation = {
-      ...reservation,
-    };
-
-    console.log(newReservation);
-
-    // Send the new reservation object to the server to be created.
-    // ...
-
-    // Clear the form.
-    setReservation({
-      departure: "",
-      arrival: "",
-      date: "",
-      returnDate: "",
-      time: "",
-      ticketCount: 0,
-      ticketClass: "",
-      trainId: "",
-      travelerId: "",
-    });
+    
+    console.log(reservation);
+    setShowAvailability(true);
   };
   
   const handleChange = (event) => {
@@ -146,11 +111,11 @@ function ReservationForm() {
                 type="switch"
                 id="custom-switch"
                 label="Include Return Tickets"
-                onChange={() => (setReturnTickets(!returnTickets))}
+                onChange={() => (setReturnTrip(!returnTrip))}
               />
             </Col>
 
-            {returnTickets && (
+            {returnTrip && (
               <Col>
                 <FormGroup controlId="returnDate">
                   <FormLabel>Return Date</FormLabel>
