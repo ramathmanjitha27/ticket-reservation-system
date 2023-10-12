@@ -1,34 +1,29 @@
-// import logo from './logo.svg';
-// import './App.css';
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-import MakeReservation from './pages/reservations/MakeReservation';
-
+import React from "react";
+import "./App.css";
+import CreateTrain from "./shared/screens/train-managment/create-train";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import StaffRegister from "./screens/staff/StaffRegister";
+import StaffUpdate from "./screens/staff/StaffUpdate";
+import StaffProfile from "./screens/staff/StaffProfile";
+import LoadingView from "./components/LoadingView";
+import NavbarView from "./components/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <Router>
+    <>
+      <BrowserRouter>
+        <NavbarView />
         <Routes>
-          <Route path="/reserve" element={<MakeReservation />} />
+          <Route path="/create-train" element={<CreateTrain />} />
+          <Route path="/staff/*">
+            <Route path="register" element={<StaffRegister />} />
+            <Route path="update" element={<StaffUpdate />} />
+            <Route path="profile" element={<StaffProfile />} />
+            <Route path="testing" element={<LoadingView />} />
+          </Route>
         </Routes>
-      </Router>
-    </div>
+      </BrowserRouter>
+    </>
   );
 }
 
