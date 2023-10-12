@@ -11,7 +11,7 @@ import {
 import { Row, Col } from "react-bootstrap";
 import { FaTrashAlt } from "react-icons/fa";
 
-const CreateTrain = () => {
+const EditTrain = () => {
   const [train, setTrain] = useState({
     name: "",
     departureStation: "",
@@ -113,7 +113,7 @@ const CreateTrain = () => {
       <Col className="col-5">
         <Row className="justify-content-center">
           <Col className="col-auto my-5">
-            <h2>Create Train</h2>
+            <h2>Edit Train</h2>
           </Col>
         </Row>
         <Form onSubmit={handleSubmit}>
@@ -330,7 +330,7 @@ const CreateTrain = () => {
 
           <Row className="justify-content-center">
             <Col className="col-auto my-5">
-              <Button type="submit">Create Train</Button>
+              <Button type="submit">Edit Train</Button>
             </Col>
           </Row>
         </Form>
@@ -339,4 +339,4 @@ const CreateTrain = () => {
   );
 };
 
-export default CreateTrain;
+export default EditTrain;
