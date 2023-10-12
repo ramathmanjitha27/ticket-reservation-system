@@ -1,16 +1,30 @@
 import React from "react";
 import "./App.css";
 import CreateTrain from "./shared/screens/train-managment/create-train";
-import { Row, Col } from "react-bootstrap";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import StaffRegister from "./screens/staff/StaffRegister";
+import StaffUpdate from "./screens/staff/StaffUpdate";
+import StaffProfile from "./screens/staff/StaffProfile";
+import LoadingView from "./components/LoadingView";
+import NavbarView from "./components/Navbar";
+import StaffLogin from "./screens/authentication/StaffLogin";
 
 function App() {
   return (
     <>
-      <Row>
-        <Col>
-          <CreateTrain />
-        </Col>
-      </Row>
+      <BrowserRouter>
+        <NavbarView />
+        <Routes>
+          <Route path="/create-train" element={<CreateTrain />} />
+          <Route path="/staff/*">
+            <Route path="register" element={<StaffRegister />} />
+            <Route path="login" element={<StaffLogin />} />
+            <Route path="update" element={<StaffUpdate />} />
+            <Route path="profile" element={<StaffProfile />} />
+            <Route path="testing" element={<LoadingView />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
