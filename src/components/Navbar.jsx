@@ -23,7 +23,12 @@ const travelerNavElements = [
 ];
 
 const NavbarView = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(
+        {
+      username: "test",
+      roles: ["admin"],
+    }
+  );
   //     {
   //     username: "test",
   //     roles: ["admin"],
