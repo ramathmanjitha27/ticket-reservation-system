@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Button,
-  Card,
   Col,
   Form,
   FormControl,
@@ -89,103 +88,89 @@ const StaffRegister = () => {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center"
-      style={{
-        marginTop: "50px",
-      }}
-    >
-      <Card style={{ width: "85vh", minHeight: "85vh" }} className="my-5">
-        <Row
-          className="justify-content-center"
-          style={{
-            marginTop: "50px",
-          }}
-        >
-          <Col className="mx-5">
-            <Row className="justify-content-center">
-              <Col className="col-auto mb-5">
-                <h2>Staff Registration</h2>
-              </Col>
-            </Row>
-            <Form onSubmit={handleSubmit}>
-              <Col>
-                <FormGroup controlId="fullName" className="mb-3">
-                  <FormLabel>Enter your full name</FormLabel>
-                  <FormControl
-                    type="text"
-                    name="fullName"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                </FormGroup>
-                <FormGroup controlId="username" className="mb-3">
-                  <FormLabel>Enter a Username</FormLabel>
-                  <FormControl
-                    type="text"
-                    name="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </FormGroup>
-
-                <FormGroup controlId="email" className="mb-3">
-                  <FormLabel>Enter Email Address</FormLabel>
-                  <FormControl
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </FormGroup>
-                <FormGroup controlId="password" className="mb-3">
-                  <FormLabel>Password</FormLabel>
-                  <FormControl
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </FormGroup>
-                <FormGroup controlId="password" className="mb-3">
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="inlineCheckbox1"
-                      value="option1"
-                      onChange={() => handleMultiSelect("admin")}
-                    />
-                    <label class="form-check-label" for="inlineCheckbox1">
-                      Admin
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      id="inlineCheckbox2"
-                      value="option2"
-                      onChange={() => handleMultiSelect("agent")}
-                      defaultChecked
-                    />
-                    <label class="form-check-label" for="inlineCheckbox2">
-                      Travel Agent
-                    </label>
-                  </div>
-                </FormGroup>
-              </Col>
-
-              <Row className="justify-content-center">
-                <Col className="col-auto my-5">
-                  <Button type="submit">Submit</Button>
-                </Col>
-              </Row>
-            </Form>
+    <Row className="justify-content-center">
+      <Col className="col-5">
+        <Row className="justify-content-center">
+          <Col className="col-auto my-5">
+            <h2>Staff Registration</h2>
           </Col>
         </Row>
-      </Card>
-    </div>
+        <Form onSubmit={handleSubmit}>
+          <Col>
+            <FormGroup controlId="fullName" className="mb-3">
+              <FormLabel>Enter your full name</FormLabel>
+              <FormControl
+                type="text"
+                name="fullName"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup controlId="username" className="mb-3">
+              <FormLabel>Enter a Username</FormLabel>
+              <FormControl
+                type="text"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </FormGroup>
+
+            <FormGroup controlId="email" className="mb-3">
+              <FormLabel>Enter Email Address</FormLabel>
+              <FormControl
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup controlId="password" className="mb-3">
+              <FormLabel>Password</FormLabel>
+              <FormControl
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FormGroup>
+            <FormGroup controlId="password" className="mb-3">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="inlineCheckbox1"
+                  value="option1"
+                  onChange={() => handleMultiSelect("admin")}
+                />
+                <label class="form-check-label" for="inlineCheckbox1">
+                  Admin
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="inlineCheckbox2"
+                  value="option2"
+                  onChange={() => handleMultiSelect("agent")}
+                  defaultChecked
+                />
+                <label class="form-check-label" for="inlineCheckbox2">
+                  Travel Agent
+                </label>
+              </div>
+            </FormGroup>
+          </Col>
+
+          <Row className="justify-content-center">
+            <Col className="col-auto my-5">
+              <Button type="submit">Submit</Button>
+            </Col>
+          </Row>
+        </Form>
+      </Col>
+    </Row>
   );
 };
 
