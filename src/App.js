@@ -7,6 +7,7 @@ import StaffUpdate from "./screens/staff/StaffUpdate";
 import StaffProfile from "./screens/staff/StaffProfile";
 import LoadingView from "./components/LoadingView";
 import NavbarView from "./components/Navbar";
+import StaffLogin from "./screens/authentication/StaffLogin";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/create-train" element={<CreateTrain />} />
           <Route path="/staff/*">
             <Route path="register" element={<StaffRegister />} />
+            <Route path="login" element={<StaffLogin />} />
             <Route path="update" element={<StaffUpdate />} />
             <Route path="profile" element={<StaffProfile />} />
             <Route path="testing" element={<LoadingView />} />
