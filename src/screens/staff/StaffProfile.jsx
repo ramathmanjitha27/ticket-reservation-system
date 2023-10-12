@@ -83,7 +83,12 @@ const StaffProfile = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center">
+    <div
+      className="d-flex justify-content-center"
+      style={{
+        marginTop: "50px",
+      }}
+    >
       <Card style={{ width: "85vh", minHeight: "85vh" }} className="my-5">
         <Card.Header className="d-flex justify-content-center">
           <div>
