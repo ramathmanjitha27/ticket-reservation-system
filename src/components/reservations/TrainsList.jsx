@@ -4,14 +4,26 @@ import Button from 'react-bootstrap/Button';
 
 import ConfirmModal from './ConfirmModal';
 
-function TrainsList({ departure, arrival, date, ticketClass, ticketCount, travelerId, trains }) {
+function TrainsList({ departure, arrival, date, reservation, trains }) {
   const [show, setShow] = useState(false);
   const modalHeading = "Reservation Summary";
+  const reservationInfo = {
+    departure: departure,
+    arrival: arrival,
+    date: date,
+    time: "",
+    ticketCount: reservation.ticketCount,
+    ticketClass: reservation.ticketClass,
+    trainId: "",
+    travelerId: reservation.travelerId,
+  };
+  
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleConfirm = () => {
-    // Post reservation here!
+    // Post reservation here
+    // Update train ticket count here
     setShow(false)
   };
 
@@ -32,22 +44,28 @@ function TrainsList({ departure, arrival, date, ticketClass, ticketCount, travel
           {trains.map((train) => (
             <tr key={train.id}>
               <td>{train.name}</td>
-              {train.schedules.filter((schedule) => schedule.station === departure).map((station) => (
-                <td>{station.departureTime}</td>
-              ))}
+              {train.schedules.filter((schedule) => schedule.station === departure).map((station) => {
+                reservationInfo.time = station.departureTime;
+                return(
+                  <td>{station.departureTime}</td>
+                )
+              })}
               {train.schedules.filter((schedule) => schedule.station === arrival).map((station) => (
                 <td>{station.arrivalTime}</td>
               ))}
-              <td>{ticketClass}</td>
-              <td>{ticketCount}</td>
-              <td><Button variant="primary" onClick={handleShow}>
+              <td>{reservation.ticketClass}</td>
+              <td>{reservation.ticketCount}</td>
+              <td><Button variant="primary" onClick={() => {
+                reservationInfo.trainId = train.id;
+                handleShow();
+              }}>
                 Reserve
               </Button></td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <ConfirmModal modalHeading={modalHeading} show={show} handleClose={handleClose} handleConfirm={handleConfirm} />
+      <ConfirmModal modalHeading={modalHeading} show={show} handleClose={handleClose} handleConfirm={handleConfirm} reservationInfo={reservationInfo} />
     </>  
   );
 }

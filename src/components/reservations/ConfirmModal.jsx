@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function ConfirmModal({ modalHeading, show, handleClose, handleConfirm }) {
+function ConfirmModal({ modalHeading, show, handleClose, handleConfirm, reservationInfo }) {
   
 
   return ( 
@@ -11,14 +11,13 @@ function ConfirmModal({ modalHeading, show, handleClose, handleConfirm }) {
       </Modal.Header>
       <Modal.Body>
         <ul>
-          <li>Traveler NIC: </li>
-          <li>Departure: </li>
-          <li>Time of Departure: </li>
-          <li>Arrival: </li>
-          <li>Time of Arrival: </li>
-          <li>Date: </li>
-          <li>Ticket Class: </li>
-          <li>Ticket Count: </li>
+          <li>Traveler NIC: {reservationInfo.travelerId}</li>
+          <li>Departure: {reservationInfo.departure}</li>
+          <li>Arrival: {reservationInfo.arrival}</li>   
+          <li>Date: {reservationInfo.date}</li>
+          <li>Time of Departure: {reservationInfo.time}</li>       
+          <li>Ticket Class: {reservationInfo.ticketClass}</li>
+          <li>Ticket Count: {reservationInfo.ticketCount}</li>
         </ul>
       </Modal.Body>
       <Modal.Footer>
