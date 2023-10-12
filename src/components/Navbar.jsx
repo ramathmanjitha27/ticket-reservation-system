@@ -71,7 +71,7 @@ const NavbarView = () => {
           className="fw-bolder"
           onClick={() => localStorage.setItem("SelectedItem", "1")}
         >
-          Ticker Reservations
+          Ticket Reservations
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

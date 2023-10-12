@@ -1,6 +1,7 @@
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
-function TrainsList() {
+function TrainsList({ departure, arrival, ticketClass, count, trains }) {
   return (
     <Table striped bordered hover>
       <thead>
@@ -14,14 +15,20 @@ function TrainsList() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-        </tr>
+        {trains.map((train) => (
+          <tr key={train.id}>
+            <td>{train.name}</td>
+            {train.schedules.filter((schedule) => schedule.station === departure).map((station) => (
+              <td>{station.departureTime}</td>
+            ))}
+            {train.schedules.filter((schedule) => schedule.station === arrival).map((station) => (
+              <td>{station.arrivalTime}</td>
+            ))}
+            <td>{ticketClass}</td>
+            <td>{count}</td>
+            <td><Button>Reserve</Button></td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );

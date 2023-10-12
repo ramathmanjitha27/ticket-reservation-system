@@ -106,11 +106,14 @@ function ReservationForm({ reservation, setReservation, returnTrip, setReturnTri
               </FormGroup>
             </Col>
 
-            <Col>
+            <Col className="col-auto">
               <FormCheck
                 type="switch"
                 id="custom-switch"
                 label="Include Return Tickets"
+                style={{
+                  marginTop: "40px",
+                }}
                 onChange={() => (setReturnTrip(!returnTrip))}
               />
             </Col>

@@ -1,8 +1,9 @@
 import { Row, Col } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+
+import TrainsList from './TrainsList';
 
 function CheckAvailability({ reservation, returnTrip }) {
 
@@ -10,7 +11,7 @@ function CheckAvailability({ reservation, returnTrip }) {
     {
         "id": "6524379fb42b75b9309e688c",
         "name": "Train 1",
-        "departureStation": "Maradana",
+        "departureStation": "Colombo Fort",
         "arrivalStation": "Galle",
         "date": "2023-10-08T18:30:00Z",
         "isActive": true,
@@ -37,12 +38,12 @@ function CheckAvailability({ reservation, returnTrip }) {
         ],
         "schedules": [
             {
-                "station": "Maradana",
+                "station": "Colombo Fort",
                 "arrivalTime": "10:00",
                 "departureTime": "10:15"
             },
             {
-                "station": "Kandy",
+                "station": "Kalutara",
                 "arrivalTime": "11:00",
                 "departureTime": "11:15"
             },
@@ -59,8 +60,8 @@ const RETURNTRAINS = [
   {
       "id": "6524379fb42b75b9309e688c",
       "name": "Train 1",
-      "departureStation": "Mahiyanganaya",
-      "arrivalStation": "Colombo",
+      "departureStation": "Galle",
+      "arrivalStation": "Colombo Fort",
       "date": "2023-10-08T18:30:00Z",
       "isActive": true,
       "isPublished": true,
@@ -91,12 +92,12 @@ const RETURNTRAINS = [
               "departureTime": "10:15"
           },
           {
-              "station": "Kandy",
+              "station": "Kalutara",
               "arrivalTime": "11:00",
               "departureTime": "11:15"
           },
           {
-              "station": "Maradana",
+              "station": "Colombo Fort",
               "arrivalTime": "12:00",
               "departureTime": "12:15"
           }
@@ -108,12 +109,12 @@ const RETURNTRAINS = [
   return (
     <Row className="justify-content-center">
       <Col className="col-auto">
-        <h6 style={{
+        {/* <h6 style={{
           marginTop: "40px",
           marginBottom: "40px"
         }}>
             Train Availability
-        </h6>
+        </h6> */}
         <Tabs
           defaultActiveKey="oneWayTrip"
           id="uncontrolled-tab-example"
@@ -122,10 +123,12 @@ const RETURNTRAINS = [
           <Tab eventKey="oneWayTrip" title="One Way Trip">
             <h5>{reservation.departure} <AiOutlineArrowRight /> {reservation.arrival}</h5>
             <p>Date: {reservation.date}</p>
+            <TrainsList departure={reservation.departure} arrival={reservation.arrival} ticketClass={reservation.ticketClass} count={reservation.ticketCount} trains={TRAINS}/>
           </Tab>   
           <Tab eventKey="returnTrip" title="Return Trip" disabled={returnTrip ? false : true}>
             <h5>{reservation.arrival} <AiOutlineArrowRight /> {reservation.departure}</h5>
             <p>Date: {reservation.returnDate}</p>
+            <TrainsList departure={reservation.arrival} arrival={reservation.departure} ticketClass={reservation.ticketClass} count={reservation.ticketCount} trains={RETURNTRAINS}/>
           </Tab>       
         </Tabs>
       </Col>

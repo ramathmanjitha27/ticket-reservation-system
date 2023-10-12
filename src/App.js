@@ -7,6 +7,7 @@ import StaffUpdate from "./screens/staff/StaffUpdate";
 import StaffProfile from "./screens/staff/StaffProfile";
 import LoadingView from "./components/LoadingView";
 import NavbarView from "./components/Navbar";
+import MakeReservation from "./screens/reservations/MakeReservation";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="profile" element={<StaffProfile />} />
             <Route path="testing" element={<LoadingView />} />
           </Route>
+          <Route path="/reservations" element={<MakeReservation />} />
         </Routes>
       </BrowserRouter>
     </>

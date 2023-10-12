@@ -22,13 +22,13 @@ function MakeReservation() {
 
   return (
     <Row className="justify-content-center">
-      <Col className="col-auto">
-        <h1 style={{
-          marginTop: "40px",
-          marginBottom: "40px"
+      <Col className="col-6">
+        <h2 style={{
+          marginTop: "90px",
+          marginBottom: "30px"
         }}>
             Reserve Train Tickets
-        </h1>
+        </h2>
         {showAvailability ? (
           <>
           <CheckAvailability reservation={reservation} returnTrip={returnTrip}/>
