@@ -14,7 +14,6 @@ function MakeReservation() {
     time: "",
     ticketCount: 0,
     ticketClass: "",
-    trainId: "",
     travelerId: "",
   });
   const [returnTrip, setReturnTrip] = useState(false);

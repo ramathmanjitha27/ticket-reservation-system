@@ -14,8 +14,7 @@ function ReservationForm({ reservation, setReservation, returnTrip, setReturnTri
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    console.log(reservation);
+  
     setShowAvailability(true);
   };
   
