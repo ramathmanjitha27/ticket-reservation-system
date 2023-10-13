@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link } from "react-router-dom";
 import {
   Form,
   FormGroup,
@@ -13,11 +14,25 @@ import Tabs from 'react-bootstrap/Tabs';
 import Table from 'react-bootstrap/Table';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
+import ConfirmModal from '../../components/reservations/ConfirmModal';
+
 
 function TravelDetails() {
   const [nic, setNic] = useState("");
+  const modalDelete = "Delete Reservation";
+  const [show, setShow] = useState(false);
+  let reservationInfo = {
+    departure: "",
+    arrival: "",
+    date: "",
+    time: "",
+    ticketCount: 0,
+    ticketClass: "",
+    trainId: "",
+  };
   // const [history, setHistory] = useState([]);
   // const [upcoming, setUpcoming] = useState([]);
+
 
   const history = [
     {
@@ -74,6 +89,14 @@ function TravelDetails() {
   
    // get travel details - history
    // get travel details - upcoming
+  };
+
+ 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleConfirm = () => {
+    // Delete reservation here
+    setShow(false)
   };
   
 
@@ -143,15 +166,19 @@ function TravelDetails() {
                     <td>
                       <Row>
                         <Col>
-                          <Button variant="primary" onClick={() => {
-                            console.log("update")
-                          }}>
-                            <AiFillEdit />
-                          </Button>
+                          <Link to="/reservations/new">
+                            <Button variant="primary" onClick={() => {
+                              console.log("update")
+                            }}>
+                              <AiFillEdit />
+                            </Button>
+                          </Link>  
                         </Col>
                         <Col>
-                          <Button variant="danger" onClick={() => {
-                            console.log("delete")
+                          <Button variant="danger" onClick={() => {  
+                            reservationInfo = {...trip}; 
+                            console.log(reservationInfo);    
+                            handleShow();               
                           }}>
                             <AiFillDelete />
                           </Button>
@@ -191,7 +218,8 @@ function TravelDetails() {
               </tbody>
             </Table>            
           </Tab>       
-        </Tabs>            
+        </Tabs> 
+        <ConfirmModal modalHeading={modalDelete} show={show} handleClose={handleClose} handleConfirm={handleConfirm} reservationInfo={reservationInfo} />
       </Col>
     </Row>
   );

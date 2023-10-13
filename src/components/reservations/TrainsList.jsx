@@ -6,7 +6,7 @@ import ConfirmModal from './ConfirmModal';
 
 function TrainsList({ departure, arrival, date, reservation, trains }) {
   const [show, setShow] = useState(false);
-  const modalHeading = "Reservation Summary";
+  const modalHeading = "Confirm Reservation";
   const reservationInfo = {
     departure: departure,
     arrival: arrival,

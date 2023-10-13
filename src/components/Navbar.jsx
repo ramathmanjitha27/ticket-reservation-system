@@ -5,20 +5,20 @@ import { Link } from "react-router-dom";
 
 const travelAgentNavElements = [
   { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "Reservations", path: "/reservations" },
+  { id: 2, title: "Reservations", path: "/reservations/new" },
   { id: 3, title: "Travelers", path: "/travelers" },
 ];
 
 const adminNavElements = [
   { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "Reservations", path: "/reservations" },
+  { id: 2, title: "Reservations", path: "/reservations/new" },
   { id: 3, title: "Travelers", path: "/travelers" },
   { id: 4, title: "Trains", path: "/trains" },
 ];
 
 const travelerNavElements = [
   { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "My Reservations", path: "/reservations" },
+  { id: 2, title: "My Reservations", path: "/reservations/new" },
   { id: 3, title: "My Bookings", path: "/travelers" },
 ];
 

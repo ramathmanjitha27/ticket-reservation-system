@@ -7,7 +7,8 @@ function ConfirmModal({ modalHeading, show, handleClose, handleConfirm, reservat
   return ( 
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{modalHeading}</Modal.Title>
+        {/* <Modal.Title>{modalHeading}</Modal.Title> */}
+        <Modal.Title>Reservation Summary</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <ul>
@@ -25,7 +26,8 @@ function ConfirmModal({ modalHeading, show, handleClose, handleConfirm, reservat
           Cancel
         </Button>
         <Button variant="primary" onClick={handleConfirm}>
-          Confirm Rerservation
+          {/* Confirm Rerservation */}
+          {modalHeading}
         </Button>
       </Modal.Footer>
     </Modal>

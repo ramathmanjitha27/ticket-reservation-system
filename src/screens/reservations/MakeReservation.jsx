@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link } from "react-router-dom";
 import { Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
@@ -36,6 +37,11 @@ function MakeReservation() {
         ) : (
           <ReservationForm reservation={reservation} setReservation={setReservation} returnTrip={returnTrip} setReturnTrip={setReturnTrip} setShowAvailability={setShowAvailability}/>
         )}
+        <Link to="/reservations/details">
+          <Button variant="Info">
+            View Traveler Reservation Details
+          </Button>
+        </Link>  
       </Col>
     </Row>
   )
