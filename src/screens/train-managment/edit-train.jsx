@@ -24,7 +24,29 @@ const options = [
 ];
 
 const EditTrain = () => {
-  // Initialize state variables
+  const selectedTrain = {
+    name: "Express Train 1",
+    departureStation: "Station A",
+    arrivalStation: "Station B",
+    isActive: true,
+    isPublished: true,
+    availableDates: ["2023-10-15", "2023-10-16"],
+    firstClassTickets: 100,
+    secondClassTickets: 200,
+    thirdClassTickets: 300,
+    schedules: [
+      {
+        station: "Station X",
+        arrivalTime: "10:00 AM",
+        departureTime: "9:30 AM",
+      },
+      {
+        station: "Station Y",
+        arrivalTime: "11:30 AM",
+        departureTime: "11:00 AM",
+      },
+    ],
+  };
   const [train, setTrain] = useState({
     name: "",
     departureStation: "",
@@ -47,7 +69,6 @@ const EditTrain = () => {
   const [secondClassTickets, setSecondClassTickets] = useState(0);
   const [thirdClassTickets, setThirdClassTickets] = useState(0);
 
-  // Populate the form with selected train data when the component mounts
   useEffect(() => {
     setTrain(selectedTrain);
     setIsPublished(selectedTrain.isPublished);
@@ -58,11 +79,9 @@ const EditTrain = () => {
     setThirdClassTickets(selectedTrain.thirdClassTickets);
   }, []);
 
-  // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Prepare the updated train object
     const updatedTrain = {
       ...train,
       firstClassTickets: Number(firstClassTickets),
@@ -74,7 +93,12 @@ const EditTrain = () => {
 
     console.log("updatedTrain", updatedTrain);
     toast.success("Train update successful");
-    // toast.error("Train update unsuccessful");
+    toast.error("Train update unsuccessful");
+
+    // Send the updated train object to the server to be updated.
+    // ...
+
+    // Clear the form or perform any other necessary actions.
   };
 
   const handleChange = (event) => {
