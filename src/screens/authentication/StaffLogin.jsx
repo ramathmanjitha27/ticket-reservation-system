@@ -39,7 +39,7 @@ const StaffLogin = () => {
       localStorage.setItem("token", loginResponse.data);
       window.location.href = "/staff";
     } else {
-      alert("Username or Password is incorrect!");
+      alert("Email or Password is incorrect!");
       localStorage.removeItem("user");
       localStorage.removeItem("token");
     }
