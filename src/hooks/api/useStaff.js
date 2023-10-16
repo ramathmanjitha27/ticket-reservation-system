@@ -4,10 +4,10 @@ import { BACKEND_URL } from "../../constant/Utils";
 
 // Define a custom hook for managing staff-related operations
 export const useStaff = () => {
-  // const token = localStorage.getItem('token')
-  const token =
-    "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJLYXJvQGdtYWlsLmNvbSIsImVtYWlsIjoiS2Fyb0BnbWFpbC5jb20iLCJuYmYiOjE2OTc0MTgwNDAsImV4cCI6MTY5NzQxODY0MCwiaWF0IjoxNjk3NDE4MDQwLCJpc3MiOiJNeVRhdmVsQXBwIiwiYXVkIjoiTXlUYXZlbEFwcCJ9.Q_MUJ4_C0Ctj8gxSW1-xsQoKpz5C4VpaytRS9G4Om-M1hAeLwA0930mAg-zTy3EKzQMMDkqMtP4jC0GqmaRPGA";
+  // Retrieve the token from local storage
+  const token = localStorage.getItem("token");
 
+  // Define the headers for the HTTP requests
   const headers = {
     "Content-Type": "application/json",
     Authorization: "Bearer " + token,
@@ -69,7 +69,7 @@ export const useStaff = () => {
   // Function to retrieve details of all staff members
   const getAllStaffMembers = () => {
     return axios
-      .get(BACKEND_URL + "staff/")
+      .get(BACKEND_URL + "staff/", { headers })
       .then((response) => {
         if (response.data.length > 0) {
           return response.data;
