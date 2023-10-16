@@ -1,29 +1,47 @@
 import React, { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-
-// https://images.pexels.com/photos/2867110/pexels-photo-2867110.jpeg?auto=compress&cs=tinysrgb&w=1600
-// https://www.railway-technology.com/wp-content/uploads/sites/13/2023/05/shutterstock_1672556236.jpg
-// https://images.pexels.com/photos/166129/pexels-photo-166129.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2
-// https://th.bing.com/th/id/R.a4b0fd20e276a7f5a8e12991b3c4e0e2?rik=rTuC9mLJlDC2OA&pid=ImgRaw&r=0
-// https://www.tokkoro.com/picsup/2874687-nature-landscape-train-machine-smoke-trees-clouds-bridge-railway-mountain-steam-locomotive___landscape-nature-wallpapers.jpg
+import { useAuth } from "../../hooks/api/useAuth";
 
 const StaffLogin = () => {
+  const { staffLogin } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
 
-  const loginHandler = (e) => {
+  // Function to handle the login form submission
+  const loginHandler = async (e) => {
     e.preventDefault();
 
-    console.log('submitted');
-
+    // Check if the email is provided
     if (email.length === 0) {
       alert("Please insert a email");
       return;
     }
 
+    // Check if the password is provided
     if (password.length === 0) {
       alert("Please insert a password");
       return;
+    }
+
+    // Prepare an object with email and password for login
+    const logInObt = {
+      Email: email,
+      Password: password,
+    };
+
+    // Call a 'LoginStaff' function for authentication
+    const loginResponse = await staffLogin(logInObt);
+
+    if (loginResponse.status === 200) {
+      // Store user data in local storage upon successful login
+      localStorage.setItem("user", JSON.stringify(loginResponse));
+      localStorage.setItem("token", loginResponse.data);
+      window.location.href = "/staff";
+    } else {
+      alert("Email or Password is incorrect!");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
     }
   };
 
@@ -71,7 +89,9 @@ const StaffLogin = () => {
 
           <Form.Group className="mb-5" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" 
+            <Form.Control
+              type="password"
+              placeholder="Password"
               onChange={(e) => setpassword(e.target.value)}
             />
           </Form.Group>
