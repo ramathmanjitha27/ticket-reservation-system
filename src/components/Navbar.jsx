@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
-import { ADMIN_NAVBAR_ELEMENTS, TRAVELER_NAVBAR_ELEMENTS, TRAVEL_AGENT_NAVBAR } from "../constant/NavbarConstants";
+import { ADMIN_NAVBAR_ELEMENTS, TRAVELER_NAVBAR_ELEMENTS, TRAVEL_AGENT_NAVBAR } from "../constants/NavbarConstants";
 
 const NavbarView = () => {
   const [user, setUser] = useState(
