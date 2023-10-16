@@ -85,11 +85,28 @@ export const useStaff = () => {
       });
   };
 
+  const deleteStaffMember = (staffId) => {
+    return axios
+      .delete(STAFF_API_URL + staffId, { headers })
+      .then((response) => {
+        if (response.status === 200) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        return false;
+      });
+  };
+
   // Return an object with the functions for external use
   return {
     registerStaffMember,
     updateStaffMember,
     getStaffMemberById,
     getAllStaffMembers,
+    deleteStaffMember
   };
 };

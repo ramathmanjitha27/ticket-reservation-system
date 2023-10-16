@@ -71,7 +71,7 @@ const StaffRegister = () => {
 
     if (responseData) {
       alert("You are successfully registered!");
-      navigete("/");
+      navigete("/staff/login");
     } else {
       alert("Staff member is not created successfully!, Please try again");
     }

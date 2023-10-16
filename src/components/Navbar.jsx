@@ -5,12 +5,7 @@ import { Link } from "react-router-dom";
 import { ADMIN_NAVBAR_ELEMENTS, TRAVELER_NAVBAR_ELEMENTS, TRAVEL_AGENT_NAVBAR } from "../constants/NavbarConstants";
 
 const NavbarView = () => {
-  const [user, setUser] = useState(
-    //      {
-    //   username: "LWilliam",
-    //   roles: ["admin"],
-    // }
-  );
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   //     {
   //     username: "test",
   //     roles: ["admin"],
@@ -25,7 +20,7 @@ const NavbarView = () => {
   const handleLogout = () => {
     localStorage.clear();
     setUser(null);
-    window.location.href = "/login";
+    window.location.href = "/staff/login";
   };
 
   const checkUserPreviledges = () => {
