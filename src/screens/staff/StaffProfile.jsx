@@ -4,8 +4,22 @@ import { useNavigate } from "react-router-dom";
 import { useStaff } from "../../hooks/api/useStaff";
 import LoadingView from "../../components/LoadingView";
 
+const sampleUser = {
+  _id: "652729a0aa4a0ec253b4c68e",
+  username: "LWilliam",
+  email: 'lian@gmail.com',
+  password: 'liam1234',
+  fullName: 'Liam William',
+  roles: ['agent'],
+  isActivated: true,
+  travelerIds: ['1', '2'],
+
+}
+
 const StaffProfile = () => {
   const navigate = useNavigate();
+
+  // Fetch the 'getStaffMemberById' and 'updateStaffMember' functions from a custom hook
   const { getStaffMemberById, updateStaffMember } = useStaff();
 
   const [fullName, setFullName] = useState("full name 1");
@@ -16,17 +30,20 @@ const StaffProfile = () => {
   const [isActivated, setIsActivated] = useState(false);
   const [travelerIds, setTravelerIds] = useState([]);
   const [userImg, setUserImg] = useState(
-    "https://th.bing.com/th/id/OIP.CdCBHghVSFo33i1WsW5zXwHaHa?pid=ImgDet&rs=1"
+    "https://wallpapercave.com/wp/wp2521772.jpg"
   );
   const [staffId, setStaffId] = useState("652729a0aa4a0ec253b4c68e");
   const [isLoading, setIsLoading] = useState(false);
 
+  // Fetch user details when the component is mounted
   useEffect(() => {
     getStaffDetails();
   }, []);
 
+  // Function to fetch user details
   const getStaffDetails = async () => {
     setIsLoading(true);
+    // Call the 'getStaffMemberById' function to fetch user details
     const memberDetails = await getStaffMemberById(staffId);
 
     if (memberDetails) {
@@ -42,7 +59,9 @@ const StaffProfile = () => {
     }
   };
 
+  // Function to handle the "Edit" button click
   const onEditClick = () => {
+    // Navigate to the staff update page and pass user data as state
     navigate("/staff/update", {
       state: {
         fullName,
@@ -57,6 +76,7 @@ const StaffProfile = () => {
     });
   };
 
+  // Function to handle the "Deactivate" button click
   const onDeactivateClick = async () => {
     setIsActivated(false);
 

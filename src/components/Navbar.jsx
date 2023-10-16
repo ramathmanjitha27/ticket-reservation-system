@@ -2,32 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
-
-const travelAgentNavElements = [
-  { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "Reservations", path: "/reservations" },
-  { id: 3, title: "Travelers", path: "/travelers" },
-];
-
-const adminNavElements = [
-  { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "Reservations", path: "/reservations" },
-  { id: 3, title: "Travelers", path: "/travelers" },
-  { id: 4, title: "Trains", path: "/trains" },
-];
-
-const travelerNavElements = [
-  { id: 1, title: "Home", path: "/" },
-  { id: 2, title: "My Reservations", path: "/reservations" },
-  { id: 3, title: "My Bookings", path: "/travelers" },
-];
+import { ADMIN_NAVBAR_ELEMENTS, TRAVELER_NAVBAR_ELEMENTS, TRAVEL_AGENT_NAVBAR } from "../constant/NavbarConstants";
 
 const NavbarView = () => {
   const [user, setUser] = useState(
-        {
-      username: "test",
-      roles: ["admin"],
-    }
+    //      {
+    //   username: "LWilliam",
+    //   roles: ["admin"],
+    // }
   );
   //     {
   //     username: "test",
@@ -48,11 +30,11 @@ const NavbarView = () => {
 
   const checkUserPreviledges = () => {
     if (user?.roles.includes("admin")) {
-      return adminNavElements;
+      return ADMIN_NAVBAR_ELEMENTS;
     } else if (user?.roles.includes("agent")) {
-      return travelAgentNavElements;
+      return TRAVEL_AGENT_NAVBAR;
     } else if (user?.roles.includes("traveler")) {
-      return travelerNavElements;
+      return TRAVELER_NAVBAR_ELEMENTS;
     } else {
       return [];
     }
@@ -107,13 +89,6 @@ const NavbarView = () => {
                     My Profile
                   </NavDropdown.Item>
                 )}
-                {/* {
-                    user.roles.length > 1 && (
-                        <NavDropdown.Item onClick={}>
-                            Switch Role
-                        </NavDropdown.Item>
-                    )
-                } */}
                 <NavDropdown.Divider />
                 <NavDropdown.Item
                   onClick={handleLogout}
