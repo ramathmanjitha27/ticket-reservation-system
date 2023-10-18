@@ -60,7 +60,7 @@ function TravelDetails() {
       id: "12345",
       departure: "Colombo",
       arrival: "Galle",
-      date: "2023-11-12",
+      date: "2023-10-19",
       time: "09:40",
       ticketCount: 2,
       ticketClass: "Second Class",
@@ -104,7 +104,7 @@ function TravelDetails() {
           marginBottom: "30px"
         }}>
             Traveler Reservation Details
-        </h2>        
+        </h2>      
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col>
@@ -130,6 +130,7 @@ function TravelDetails() {
             </Col>
           </Row>          
         </Form>
+        <p>Reservation updates and deletes must be made at least 5 days before reserved date.</p>  
         <Tabs
           defaultActiveKey="upcoming"
           id="upcoming"
@@ -150,39 +151,56 @@ function TravelDetails() {
                 </tr>
               </thead>
               <tbody>
-                {upcoming.map((trip) => (
-                  <tr key={trip.id}>
-                    <td>{trip.departure}</td>
-                    <td>{trip.arrival}</td>
-                    <td>{trip.date}</td>
-                    <td>{trip.time}</td>
-                    <td>{trip.trainId}</td>
-                    <td>{trip.ticketClass}</td>
-                    <td>{trip.ticketCount}</td>
-                    <td>
-                      <Row>
-                        <Col>
-                          <Link to="/reservations/update" state={{trip: trip}}>
-                            {/* <Button variant="primary" onClick={() => {
-                              setReservationInfo({...trip});  
-                            }}> */}
-                            <Button>  
-                              <AiFillEdit />
+                {upcoming.map((trip) => {
+                  const today = new Date();
+                  const reservationDate = new Date(trip.date);
+                  const differenceInDays = Math.floor((reservationDate - today) / (1000 * 60 * 60 * 24));
+
+                  return (
+                    <tr key={trip.id}>
+                      <td>{trip.departure}</td>
+                      <td>{trip.arrival}</td>
+                      <td>{trip.date}</td>
+                      <td>{trip.time}</td>
+                      <td>{trip.trainId}</td>
+                      <td>{trip.ticketClass}</td>
+                      <td>{trip.ticketCount}</td>
+                      <td>
+                        <Row>
+                          <Col>
+                            <Link 
+                              style={{pointerEvents: (differenceInDays < 5) ? 'none' : ''}}
+                              to="/reservations/update" 
+                              state={{trip: trip}}                                              
+                            >
+                              {/* <Button variant="primary" onClick={() => {
+                                setReservationInfo({...trip});  
+                              }}> */}
+                              <Button
+                                variant="primary"   
+                                disabled={differenceInDays < 5}                             
+                              >  
+                                <AiFillEdit />
+                              </Button>
+                            </Link>  
+                          </Col>
+                          <Col>
+                            <Button 
+                              variant="danger" 
+                              onClick={() => {  
+                                setReservationInfo({...trip});                         
+                                handleShow();               
+                              }}
+                              disabled={differenceInDays < 5}
+                            >
+                              <AiFillDelete />
                             </Button>
-                          </Link>  
-                        </Col>
-                        <Col>
-                          <Button variant="danger" onClick={() => {  
-                            setReservationInfo({...trip});                         
-                            handleShow();               
-                          }}>
-                            <AiFillDelete />
-                          </Button>
-                        </Col>
-                      </Row>                     
-                    </td>
-                  </tr>
-                ))}
+                          </Col>
+                        </Row>                     
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </Table>
           </Tab>   

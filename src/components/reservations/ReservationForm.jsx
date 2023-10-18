@@ -12,8 +12,33 @@ import {
 
 function ReservationForm({ reservation, setReservation, returnTrip, setReturnTrip, setShowAvailability }) {
   
+  const validateNIC = (nic) => {
+    const regex = /^(?:\d{9}[a-zA-Z]|\d{12})$/;
+    return regex.test(nic);
+  };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
+       
+    if (!validateNIC(reservation.travelerId)) {
+      alert('Please enter valid NIC');
+      return;
+    }
+
+    if (reservation.departure === reservation.arrival) {
+      alert('Departure and Arrival stations cannot be the same');
+      return;
+    }
+
+    if (reservation.date === reservation.returnDate) {
+      alert('Departure and Return dates cannot be the same');
+      return;
+    }
+
+    if (reservation.date > reservation.returnDate) {
+      alert('Return date must be after the departure date');
+      return;
+    }
   
     setShowAvailability(true);
   };
@@ -98,6 +123,8 @@ function ReservationForm({ reservation, setReservation, returnTrip, setReturnTri
                   placeholder="Pick Date"
                   value={reservation.date}
                   onChange={handleChange}
+                  min={new Date().toISOString().slice(0, 10)}
+                  max={new Date(new Date().setDate(new Date().getDate() + 30)).toISOString().slice(0, 10)}
                 />
                 <Form.Control.Feedback type="invalid">
                   Please pick a date.
@@ -128,6 +155,8 @@ function ReservationForm({ reservation, setReservation, returnTrip, setReturnTri
                     placeholder="Pick Return Date"
                     value={reservation.returnDate}
                     onChange={handleChange}
+                    min={new Date().toISOString().slice(0, 10)}
+                    max={new Date(new Date().setDate(new Date().getDate() + 30)).toISOString().slice(0, 10)}
                   />
                   <Form.Control.Feedback type="invalid">
                     Please pick a return date.

@@ -16,7 +16,6 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
     trainId: "",
     travelerId: reservation.travelerId,
   };
-  
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -24,6 +23,17 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
     if (modalHeading === "Confirm Reservation") {
       // Post reservation here
       // Update train ticket count here
+      // {
+      //   "departure": "Fort",
+      //   "arrival": "Kandy",
+      //   "date": "2023-10-22T05:30:00+05:30",
+      //   "time": "09:00",
+      //   "ticketCount": 2,
+      //   "ticketClass": 3,
+      //   "trainId": "6523a981cffc6af533a5fe7f",
+      //   "travelerId": "6523a981c23c6af5eea5fe7f"
+      // }
+      
     } else {
       // Update reservation here
       // Update train ticket count here

@@ -26,6 +26,11 @@ function UpdateReservation() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (reservation.departure === reservation.arrival) {
+      alert('Departure and Arrival stations cannot be the same');
+      return;
+    }
   
     setShowAvailability(true);
   };
@@ -75,6 +80,7 @@ function UpdateReservation() {
               name="travelerId"
               value={reservation.travelerId}
               onChange={handleChange}
+              disabled
             />
             <Form.Control.Feedback type="invalid">
               Please provide a valid NIC.
@@ -122,6 +128,8 @@ function UpdateReservation() {
               placeholder="Pick Date"
               value={reservation.date}
               onChange={handleChange}
+              min={new Date().toISOString().slice(0, 10)}
+              max={new Date(new Date().setDate(new Date().getDate() + 30)).toISOString().slice(0, 10)}
             />
             <Form.Control.Feedback type="invalid">
               Please pick a date.

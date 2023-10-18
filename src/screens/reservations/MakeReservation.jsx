@@ -38,11 +38,13 @@ function MakeReservation() {
         ) : (
           <ReservationForm reservation={reservation} setReservation={setReservation} returnTrip={returnTrip} setReturnTrip={setReturnTrip} setShowAvailability={setShowAvailability}/>
         )}
-        <Link to="/reservations/details">
-          <Button variant="Info">
-            View Traveler Reservation Details
-          </Button>
-        </Link>  
+        <Row>
+          <Link to="/reservations/details">
+            <Button variant="Info" style={{marginTop: "10px"}}>
+              View Traveler Reservation Details
+            </Button>
+          </Link>
+        </Row>  
       </Col>
     </Row>
   )
