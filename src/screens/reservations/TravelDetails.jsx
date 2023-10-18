@@ -21,18 +21,14 @@ function TravelDetails() {
   const [nic, setNic] = useState("");
   const modalDelete = "Delete Reservation";
   const [show, setShow] = useState(false);
-  let reservationInfo = {
-    departure: "",
-    arrival: "",
-    date: "",
-    time: "",
-    ticketCount: 0,
-    ticketClass: "",
-    trainId: "",
-  };
+  const [reservationInfo, setReservationInfo] = useState({});
+  const [testInfo, setTestInfo] = useState({test: "ok"}); 
   // const [history, setHistory] = useState([]);
   // const [upcoming, setUpcoming] = useState([]);
 
+
+  // get travel details - history
+  // get travel details - upcoming
 
   const history = [
     {
@@ -47,7 +43,7 @@ function TravelDetails() {
       travelerId: "445565465V",
     },
     {
-      id: "123",
+      id: "1234",
       departure: "Galle",
       arrival: "Colombo",
       date: "2023-09-15",
@@ -61,7 +57,7 @@ function TravelDetails() {
 
   const upcoming = [
     {
-      id: "123",
+      id: "12345",
       departure: "Colombo",
       arrival: "Galle",
       date: "2023-11-12",
@@ -72,7 +68,7 @@ function TravelDetails() {
       travelerId: "445565465V",
     },
     {
-      id: "123",
+      id: "123456",
       departure: "Galle",
       arrival: "Colombo",
       date: "2023-11-15",
@@ -166,18 +162,18 @@ function TravelDetails() {
                     <td>
                       <Row>
                         <Col>
-                          <Link to="/reservations/new">
-                            <Button variant="primary" onClick={() => {
-                              console.log("update")
-                            }}>
+                          <Link to="/reservations/update" state={{trip: trip}}>
+                            {/* <Button variant="primary" onClick={() => {
+                              setReservationInfo({...trip});  
+                            }}> */}
+                            <Button>  
                               <AiFillEdit />
                             </Button>
                           </Link>  
                         </Col>
                         <Col>
                           <Button variant="danger" onClick={() => {  
-                            reservationInfo = {...trip}; 
-                            console.log(reservationInfo);    
+                            setReservationInfo({...trip});                         
                             handleShow();               
                           }}>
                             <AiFillDelete />

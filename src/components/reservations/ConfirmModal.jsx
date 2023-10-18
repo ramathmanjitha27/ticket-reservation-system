@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal';
 
 function ConfirmModal({ modalHeading, show, handleClose, handleConfirm, reservationInfo }) {
   
-
   return ( 
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>

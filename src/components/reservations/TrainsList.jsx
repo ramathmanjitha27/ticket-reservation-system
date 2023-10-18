@@ -4,9 +4,8 @@ import Button from 'react-bootstrap/Button';
 
 import ConfirmModal from './ConfirmModal';
 
-function TrainsList({ departure, arrival, date, reservation, trains }) {
+function TrainsList({ departure, arrival, date, reservation, trains, modalHeading }) {
   const [show, setShow] = useState(false);
-  const modalHeading = "Confirm Reservation";
   const reservationInfo = {
     departure: departure,
     arrival: arrival,
@@ -22,8 +21,13 @@ function TrainsList({ departure, arrival, date, reservation, trains }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleConfirm = () => {
-    // Post reservation here
-    // Update train ticket count here
+    if (modalHeading === "Confirm Reservation") {
+      // Post reservation here
+      // Update train ticket count here
+    } else {
+      // Update reservation here
+      // Update train ticket count here
+    }
     setShow(false)
   };
 
@@ -59,7 +63,7 @@ function TrainsList({ departure, arrival, date, reservation, trains }) {
                 reservationInfo.trainId = train.id;
                 handleShow();
               }}>
-                Reserve
+                Confirm
               </Button></td>
             </tr>
           ))}

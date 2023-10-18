@@ -19,6 +19,7 @@ function MakeReservation() {
   });
   const [returnTrip, setReturnTrip] = useState(false);
   const [showAvailability, setShowAvailability] = useState(false);
+  const modalHeading = "Confirm Reservation";
 
   return (
     <Row className="justify-content-center">
@@ -31,7 +32,7 @@ function MakeReservation() {
         </h2>
         {showAvailability ? (
           <>
-          <CheckAvailability reservation={reservation} returnTrip={returnTrip}/>
+          <CheckAvailability reservation={reservation} returnTrip={returnTrip} modalHeading={modalHeading}/>
           <Button onClick={() => setShowAvailability(false)}>Return to Reservation Form</Button>
           </>
         ) : (

@@ -5,7 +5,9 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 
 import TrainsList from './TrainsList';
 
-function CheckAvailability({ reservation, returnTrip }) {
+function CheckAvailability({ reservation, returnTrip, modalHeading }) {
+
+  // get train avaialbility from the backend
 
   const TRAINS = [
     {
@@ -123,12 +125,12 @@ const RETURNTRAINS = [
           <Tab eventKey="oneWayTrip" title="One Way Trip">
             <h5>{reservation.departure} <AiOutlineArrowRight /> {reservation.arrival}</h5>
             <p>Date: {reservation.date}</p>
-            <TrainsList departure={reservation.departure} arrival={reservation.arrival} date={reservation.date} reservation={reservation} trains={TRAINS}/>
+            <TrainsList departure={reservation.departure} arrival={reservation.arrival} date={reservation.date} reservation={reservation} trains={TRAINS} modalHeading={modalHeading}/>
           </Tab>   
           <Tab eventKey="returnTrip" title="Return Trip" disabled={returnTrip ? false : true}>
             <h5>{reservation.arrival} <AiOutlineArrowRight /> {reservation.departure}</h5>
             <p>Date: {reservation.returnDate}</p>
-            <TrainsList  departure={reservation.arrival} arrival={reservation.departure} date={reservation.returnDate} reservation={reservation} trains={RETURNTRAINS}/>
+            <TrainsList  departure={reservation.arrival} arrival={reservation.departure} date={reservation.returnDate} reservation={reservation} trains={RETURNTRAINS} modalHeading={modalHeading}/>
           </Tab>       
         </Tabs>
       </Col>
