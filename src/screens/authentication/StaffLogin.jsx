@@ -35,8 +35,9 @@ const StaffLogin = () => {
 
     if (loginResponse.status === 200) {
       // Store user data in local storage upon successful login
-      localStorage.setItem("user", JSON.stringify(loginResponse));
-      localStorage.setItem("token", loginResponse.data);
+      alert("Login Successful!");
+      localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
+      localStorage.setItem("token", loginResponse.data.token);
       window.location.href = "/staff";
     } else {
       alert("Email or Password is incorrect!");

@@ -7,20 +7,21 @@ import LoadingView from "../../components/LoadingView";
 const sampleUser = {
   _id: "652729a0aa4a0ec253b4c68e",
   username: "LWilliam",
-  email: 'lian@gmail.com',
-  password: 'liam1234',
-  fullName: 'Liam William',
-  roles: ['agent'],
+  email: "lian@gmail.com",
+  password: "liam1234",
+  fullName: "Liam William",
+  roles: ["agent"],
   isActivated: true,
-  travelerIds: ['1', '2'],
-
-}
+  travelerIds: ["1", "2"],
+};
 
 const StaffProfile = () => {
   const navigate = useNavigate();
 
   // Fetch the 'getStaffMemberById' and 'updateStaffMember' functions from a custom hook
-  const { getStaffMemberById, updateStaffMember } = useStaff();
+  const { getStaffMemberById, updateStaffMember, deleteStaffMember } =
+    useStaff();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [fullName, setFullName] = useState("full name 1");
   const [username, setUsername] = useState("username 1");
@@ -32,7 +33,7 @@ const StaffProfile = () => {
   const [userImg, setUserImg] = useState(
     "https://wallpapercave.com/wp/wp2521772.jpg"
   );
-  const [staffId, setStaffId] = useState("652729a0aa4a0ec253b4c68e");
+  const [staffId, setStaffId] = useState(user?.id);
   const [isLoading, setIsLoading] = useState(false);
 
   // Fetch user details when the component is mounted
@@ -96,9 +97,31 @@ const StaffProfile = () => {
 
     if (responseData) {
       alert("Your account Deactivated!");
-      navigate("/");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      window.location.href = "/staff/login";
     } else {
       alert("Deactivation is not successful!, Please try again");
+    }
+  };
+
+  const onDeleteClick = async () => {
+    const deleteResponse = await deleteStaffMember(staffId);
+
+    if (deleteResponse) {
+      alert("Your account Deleted!");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      window.location.href = "/staff/login";
+    } else {
+      alert("Deletion is not successful!, Please try again");
+    }
+  };
+
+  const onRoleRender = (role) => {
+    console.log(role);
+    if (role) {
+      return role.charAt(0).toUpperCase() + role.slice(1);
     }
   };
 
@@ -125,7 +148,15 @@ const StaffProfile = () => {
             />
             <div className="block justify-content-center text-center my-3">
               <div className="fw-bold fs-5">{username}</div>
-              <div> {roles} </div>
+              <div className="mt-2 d-flex justify-content-center gap-1">
+                {roles.map((role) => {
+                  return (
+                    <div className="border border-1 border-secondary p-1 rounded">
+                      {onRoleRender(role)}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </Card.Header>
@@ -162,19 +193,42 @@ const StaffProfile = () => {
                   <Col className="d-flex justify-content-center">
                     User Roles
                   </Col>
-                  <Col>{roles}</Col>
+                  <Col>
+                    {/* {roles} */}
+                    <div className="d-flex gap-1">
+                      {roles.map((role) => {
+                        return (
+                          <div className="border border-1 border-secondary p-1 rounded">
+                            {onRoleRender(role)}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </Col>
                   <div className="d-flex justify-content-center ">
                     <hr style={{ width: "70vh" }} />
                   </div>
                 </Row>
               </div>
               <div className="d-flex justify-content-between">
-                <Button variant="primary" onClick={onEditClick}>
-                  Edit Details
-                </Button>
-                <Button variant="danger" onClick={onDeactivateClick}>
-                  Deactivate
-                </Button>
+                <div>
+                  <Button variant="primary" onClick={onEditClick}>
+                    Edit Details
+                  </Button>
+                </div>
+                <div className="">
+                  <Button variant="danger" onClick={onDeactivateClick}>
+                    Deactivate
+                  </Button>
+                  <br></br>
+                  <Button
+                    className="mt-3"
+                    variant="btn btn-outline-danger"
+                    onClick={onDeleteClick}
+                  >
+                    Delete Account!
+                  </Button>
+                </div>
               </div>
             </>
           )}
