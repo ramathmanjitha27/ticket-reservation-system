@@ -1,113 +1,38 @@
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
 import TrainsList from './TrainsList';
+import { useReservation } from '../../hooks/api/useReservation';
 
 function CheckAvailability({ reservation, returnTrip, modalHeading }) {
 
-  // get train avaialbility from the backend
+  const [trains, setTrains] = useState([]); // for one way trip
+  const [returnTrains, setReturnTrains] = useState([]); // for return trip
+  const { getTrainAvailability } = useReservation();
 
-  const TRAINS = [
-    {
-        "id": "6524379fb42b75b9309e688c",
-        "name": "Train 1",
-        "departureStation": "Colombo Fort",
-        "arrivalStation": "Galle",
-        "date": "2023-10-08T18:30:00Z",
-        "isActive": true,
-        "isPublished": true,
-        "departureTime": "10:00",
-        "arrivalTime": "12:00",
-        "availableDates": [
-            "Monday",
-            "Tuesday",
-            "Saturday",
-            "Sunday"
-        ],
-        "ticketsAvailability": [
-            {
-                "trainClass": "First Class",
-                "tickets": 10,
-                "reserved": 5
-            },
-            {
-                "trainClass": "Second Class",
-                "tickets": 20,
-                "reserved": 10
-            }
-        ],
-        "schedules": [
-            {
-                "station": "Colombo Fort",
-                "arrivalTime": "10:00",
-                "departureTime": "10:15"
-            },
-            {
-                "station": "Kalutara",
-                "arrivalTime": "11:00",
-                "departureTime": "11:15"
-            },
-            {
-                "station": "Galle",
-                "arrivalTime": "12:00",
-                "departureTime": "12:15"
-            }
-        ]
+
+  const getAvailabilityDetails = async () => {
+    console.log(reservation);
+    const trainData = await getTrainAvailability(reservation.departure, reservation.arrival, reservation.date, reservation.ticketClass, reservation.ticketCount);
+    setTrains(trainData);
+    console.log("trains", trains);
+
+    if(returnTrip) {
+      const returnTrainData = await getTrainAvailability(reservation.arrival, reservation.departure, reservation.returnDate, reservation.ticketClass, reservation.ticketCount);
+      setReturnTrains(returnTrainData);
+      console.log("returnTrains", returnTrains);
     }
-]
+  }    
 
-const RETURNTRAINS = [
-  {
-      "id": "6524379fb42b75b9309e688c",
-      "name": "Train 1",
-      "departureStation": "Galle",
-      "arrivalStation": "Colombo Fort",
-      "date": "2023-10-08T18:30:00Z",
-      "isActive": true,
-      "isPublished": true,
-      "departureTime": "10:00",
-      "arrivalTime": "12:00",
-      "availableDates": [
-          "Monday",
-          "Tuesday",
-          "Saturday",
-          "Sunday"
-      ],
-      "ticketsAvailability": [
-          {
-              "trainClass": "First Class",
-              "tickets": 10,
-              "reserved": 5
-          },
-          {
-              "trainClass": "Second Class",
-              "tickets": 20,
-              "reserved": 10
-          }
-      ],
-      "schedules": [
-          {
-              "station": "Galle",
-              "arrivalTime": "10:00",
-              "departureTime": "10:15"
-          },
-          {
-              "station": "Kalutara",
-              "arrivalTime": "11:00",
-              "departureTime": "11:15"
-          },
-          {
-              "station": "Colombo Fort",
-              "arrivalTime": "12:00",
-              "departureTime": "12:15"
-          }
-      ]
-  }
-]
+  // get train avaialbility from the backend
+  useEffect(() => {
+    getAvailabilityDetails();
+  }, [trains, returnTrains]);
 
-
+   
   return (
     <Row className="justify-content-center">
       <Col className="col-auto">
@@ -125,12 +50,12 @@ const RETURNTRAINS = [
           <Tab eventKey="oneWayTrip" title="One Way Trip">
             <h5>{reservation.departure} <AiOutlineArrowRight /> {reservation.arrival}</h5>
             <p>Date: {reservation.date}</p>
-            <TrainsList departure={reservation.departure} arrival={reservation.arrival} date={reservation.date} reservation={reservation} trains={TRAINS} modalHeading={modalHeading}/>
+            <TrainsList departure={reservation.departure} arrival={reservation.arrival} date={reservation.date} reservation={reservation} trains={trains} modalHeading={modalHeading}/>
           </Tab>   
           <Tab eventKey="returnTrip" title="Return Trip" disabled={returnTrip ? false : true}>
             <h5>{reservation.arrival} <AiOutlineArrowRight /> {reservation.departure}</h5>
             <p>Date: {reservation.returnDate}</p>
-            <TrainsList  departure={reservation.arrival} arrival={reservation.departure} date={reservation.returnDate} reservation={reservation} trains={RETURNTRAINS} modalHeading={modalHeading}/>
+            <TrainsList  departure={reservation.arrival} arrival={reservation.departure} date={reservation.returnDate} reservation={reservation} trains={returnTrains} modalHeading={modalHeading}/>
           </Tab>       
         </Tabs>
       </Col>

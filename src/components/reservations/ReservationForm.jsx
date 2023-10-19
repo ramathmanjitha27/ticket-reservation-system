@@ -52,7 +52,7 @@ function ReservationForm({ reservation, setReservation, returnTrip, setReturnTri
 
   const stations = [
     "Maradana",
-    "Colombo Fort",
+    "Colombo",
     "Kalutara",
     "Amabalangoda",
     "Galle",

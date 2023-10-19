@@ -43,7 +43,7 @@ function UpdateReservation() {
 
   const stations = [
     "Maradana",
-    "Colombo Fort",
+    "Colombo",
     "Kalutara",
     "Amabalangoda",
     "Galle",

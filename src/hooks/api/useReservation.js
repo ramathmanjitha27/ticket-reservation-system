@@ -86,9 +86,17 @@ export const useReservation = () => {
       });
   };
 
-  const getTrainAvailability = async (travelerId) => {
+  const getTrainAvailability = async (departure, arrival, date, ticketClass, ticketCount) => {
+    const url = "https://localhost:7015/api/trains/availability";
+    const params = {
+      departure,
+      arrival,
+      date,
+      ticketClass,
+      ticketCount
+    };
     try {
-      const response = await axios.get(BACKEND_URL + "/traveler/" + travelerId + "/upcoming");
+      const response = await axios.get(url, { params });
       return response.data;
     } catch (error) {
       console.log(error);
