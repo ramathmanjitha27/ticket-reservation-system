@@ -7,7 +7,7 @@ export const useReservation = () => {
   const addReservation = async (newReservation) => {
     try {
       const response = await axios.post(BACKEND_URL, newReservation);
-      return response.data;
+      return "Reservation made successfully!";
     } catch (error) {
       console.log(error);
       return error.message;

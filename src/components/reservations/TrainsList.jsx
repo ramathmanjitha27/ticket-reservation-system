@@ -8,6 +8,8 @@ import { useReservation } from "../../hooks/api/useReservation";
 
 function TrainsList({ departure, arrival, date, reservation, trains, modalHeading }) {
   const [show, setShow] = useState(false);
+  const [trainId, setTrainId] = useState("");
+
   const reservationInfo = {
     departure: departure,
     arrival: arrival,
@@ -27,30 +29,21 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
   const handleConfirm = async () => {
     if (modalHeading === "Confirm Reservation") {
       // Post reservation here
-      // Update train ticket count here
-      // {
-      //   "departure": "Fort",
-      //   "arrival": "Kandy",
-      //   "date": "2023-10-22T05:30:00+05:30",
-      //   "time": "09:00",
-      //   "ticketCount": 2,
-      //   "ticketClass": 3,
-      //   "trainId": "6523a981cffc6af533a5fe7f",
-      //   "travelerId": "6523a981c23c6af5eea5fe7f"
-      // }
-      // make the backend call here...
+      reservationInfo.trainId = trainId;
+      
+      const newDate = new Date(Date.parse(reservationInfo.date));
+      const isoString = newDate.toISOString();
+      reservationInfo.date = isoString;
 
-      console.log(reservationInfo);    
+      console.log("post", reservationInfo);    
 
       const responseData = await addReservation(reservationInfo);
 
-      if (typeof responseData === 'string') {
-        alert(responseData);
-      } else {
-        alert('Reservation made!');
-        navigate('/');
-      }
-      
+      alert(responseData);
+      navigate('/reservations/new');
+
+      // Update train ticket count here
+
     } else {
       // Update reservation here
       // Update train ticket count here
@@ -76,7 +69,7 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
             <tr key={train.id}>
               <td>{train.name}</td>
               {train.schedules.filter((schedule) => schedule.station === departure).map((station) => {
-                reservationInfo.time = station.departureTime;
+                reservationInfo.time = station.departureTime;                          
                 return(
                   <td>{station.departureTime}</td>
                 )
@@ -88,6 +81,8 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
               <td>{reservation.ticketCount}</td>
               <td><Button variant="primary" onClick={() => {
                 reservationInfo.trainId = train.id;
+                setTrainId(train.id);
+                console.log("test data", reservationInfo);                
                 handleShow();
               }}>
                 Confirm
