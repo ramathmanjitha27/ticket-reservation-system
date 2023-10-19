@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
 import ConfirmModal from './ConfirmModal';
+import { useReservation } from "../../hooks/api/useReservation";
 
 function TrainsList({ departure, arrival, date, reservation, trains, modalHeading }) {
   const [show, setShow] = useState(false);
@@ -17,9 +19,12 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
     travelerId: reservation.travelerId,
   };
 
+  const { addReservation } = useReservation();
+  const navigate = useNavigate();
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (modalHeading === "Confirm Reservation") {
       // Post reservation here
       // Update train ticket count here
@@ -33,6 +38,18 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
       //   "trainId": "6523a981cffc6af533a5fe7f",
       //   "travelerId": "6523a981c23c6af5eea5fe7f"
       // }
+      // make the backend call here...
+
+      console.log(reservationInfo);    
+
+      const responseData = await addReservation(reservationInfo);
+
+      if (typeof responseData === 'string') {
+        alert(responseData);
+      } else {
+        alert('Reservation made!');
+        navigate('/');
+      }
       
     } else {
       // Update reservation here

@@ -30,12 +30,12 @@ function ReservationForm({ reservation, setReservation, returnTrip, setReturnTri
       return;
     }
 
-    if (reservation.date === reservation.returnDate) {
+    if (returnTrip && (reservation.date === reservation.returnDate)) {
       alert('Departure and Return dates cannot be the same');
       return;
     }
 
-    if (reservation.date > reservation.returnDate) {
+    if (returnTrip && (reservation.date > reservation.returnDate)) {
       alert('Return date must be after the departure date');
       return;
     }

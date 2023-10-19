@@ -5,20 +5,13 @@ const BACKEND_URL = "https://localhost:7015/api/reservations";
 
 export const useReservation = () => {
   const addReservation = async (newReservation) => {
-    return await axios
-      .post(BACKEND_URL, newReservation)
-      .then((response) => {
-        if (response.data) {
-          return response.data;
-        } else {
-          return {};
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        // return alert("Error: " + error);
-        return {};
-      });
+    try {
+      const response = await axios.post(BACKEND_URL, newReservation);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
   };
 
   const updateStaffMember = (resId, updatedReservation) => {
@@ -37,6 +30,26 @@ export const useReservation = () => {
         console.log(error);
         return false
       });
+  };
+
+  const getTravelHistoryById = async (travelerId) => {
+    try {
+      const response = await axios.get(BACKEND_URL + "/traveler/" + travelerId + "/history");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  };
+
+  const getUpcomingTravelById = async (travelerId) => {
+    try {
+      const response = await axios.get(BACKEND_URL + "/traveler/" + travelerId + "/upcoming");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
   };
 
   const getStaffMemberById = (staffId) => {
@@ -73,11 +86,24 @@ export const useReservation = () => {
       });
   };
 
+  const getTrainAvailability = async (travelerId) => {
+    try {
+      const response = await axios.get(BACKEND_URL + "/traveler/" + travelerId + "/upcoming");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  };
+
   return {
     addReservation,
     updateStaffMember,
     getStaffMemberById,
+    getTravelHistoryById,
+    getUpcomingTravelById,
     deactivateStaffMember,
-    getAllStaffMembers,
+    getAllReservations,
+    getTrainAvailability,
   };
 };

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link } from "react-router-dom";
 import {
   Form,
   FormGroup,
-  FormLabel,
   FormControl,
   Button,
   Row, 
@@ -15,6 +14,7 @@ import Table from 'react-bootstrap/Table';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
 import ConfirmModal from '../../components/reservations/ConfirmModal';
+import { useReservation } from "../../hooks/api/useReservation";
 
 
 function TravelDetails() {
@@ -22,69 +22,31 @@ function TravelDetails() {
   const modalDelete = "Delete Reservation";
   const [show, setShow] = useState(false);
   const [reservationInfo, setReservationInfo] = useState({});
-  const [testInfo, setTestInfo] = useState({test: "ok"}); 
-  // const [history, setHistory] = useState([]);
-  // const [upcoming, setUpcoming] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
 
-
-  // get travel details - history
-  // get travel details - upcoming
-
-  const history = [
-    {
-      id: "123",
-      departure: "Colombo",
-      arrival: "Galle",
-      date: "2023-09-12",
-      time: "09:40",
-      ticketCount: 2,
-      ticketClass: "Second Class",
-      trainId: "12T",
-      travelerId: "445565465V",
-    },
-    {
-      id: "1234",
-      departure: "Galle",
-      arrival: "Colombo",
-      date: "2023-09-15",
-      time: "12:40",
-      ticketCount: 2,
-      ticketClass: "Second Class",
-      trainId: "12T",
-      travelerId: "445565465V",
-    },
-  ];
-
-  const upcoming = [
-    {
-      id: "12345",
-      departure: "Colombo",
-      arrival: "Galle",
-      date: "2023-10-19",
-      time: "09:40",
-      ticketCount: 2,
-      ticketClass: "Second Class",
-      trainId: "12T",
-      travelerId: "445565465V",
-    },
-    {
-      id: "123456",
-      departure: "Galle",
-      arrival: "Colombo",
-      date: "2023-11-15",
-      time: "12:40",
-      ticketCount: 2,
-      ticketClass: "Second Class",
-      trainId: "12T",
-      travelerId: "445565465V",
-    },
-  ];
+  const { getTravelHistoryById, getUpcomingTravelById } = useReservation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
   
-   // get travel details - history
-   // get travel details - upcoming
+    // get travel details - history
+    const fetchTravelHistory = async () => {
+      const data = await getTravelHistoryById(nic);
+      setHistory(data);
+      console.log(history);
+    }
+
+    fetchTravelHistory();
+
+    // get travel details - upcoming
+    const fetchUpcomingTravel = async () => {
+      const data = await getUpcomingTravelById(nic);
+      setUpcoming(data);
+      console.log("upcoming", upcoming);
+    }
+
+    fetchUpcomingTravel();
   };
 
  
@@ -151,7 +113,7 @@ function TravelDetails() {
                 </tr>
               </thead>
               <tbody>
-                {upcoming.map((trip) => {
+                {upcoming.length && upcoming.map((trip) => {
                   const today = new Date();
                   const reservationDate = new Date(trip.date);
                   const differenceInDays = Math.floor((reservationDate - today) / (1000 * 60 * 60 * 24));
@@ -218,7 +180,7 @@ function TravelDetails() {
                 </tr>
               </thead>
               <tbody>
-                {history.map((trip) => (
+                {history && history.map && history.map((trip) => (
                   <tr key={trip.id}>
                     <td>{trip.departure}</td>
                     <td>{trip.arrival}</td>
