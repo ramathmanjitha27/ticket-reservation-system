@@ -24,37 +24,42 @@ function TravelDetails() {
   const [reservationInfo, setReservationInfo] = useState({});
   const [history, setHistory] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
+  const [resId, setResId] = useState("");
 
-  const { getTravelHistoryById, getUpcomingTravelById } = useReservation();
+  const { getTravelHistoryById, getUpcomingTravelById, deleteReservation } = useReservation();
 
+  // get travel details - history
+  const fetchTravelHistory = async () => {
+    const data = await getTravelHistoryById(nic);
+    setHistory(data);
+  }
+
+   // get travel details - upcoming
+   const fetchUpcomingTravel = async () => {
+    const data = await getUpcomingTravelById(nic);
+    setUpcoming(data);
+  }
+  
   const handleSubmit = (event) => {
     event.preventDefault();
   
     // get travel details - history
-    const fetchTravelHistory = async () => {
-      const data = await getTravelHistoryById(nic);
-      setHistory(data);
-      console.log(history);
-    }
-
     fetchTravelHistory();
 
     // get travel details - upcoming
-    const fetchUpcomingTravel = async () => {
-      const data = await getUpcomingTravelById(nic);
-      setUpcoming(data);
-      console.log("upcoming", upcoming);
-    }
-
     fetchUpcomingTravel();
   };
 
  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const handleConfirm = () => {
-    // Delete reservation here
+  const handleConfirm = async () => {
+    // delete reservation here
+    const responseData = await deleteReservation(resId);
+    alert(responseData);
     setShow(false)
+    // get travel details - upcoming
+    fetchUpcomingTravel();
   };
   
 
@@ -150,7 +155,8 @@ function TravelDetails() {
                             <Button 
                               variant="danger" 
                               onClick={() => {  
-                                setReservationInfo({...trip});                         
+                                setReservationInfo({...trip}); 
+                                setResId(trip.id);                                                    
                                 handleShow();               
                               }}
                               disabled={differenceInDays < 5}
@@ -195,7 +201,7 @@ function TravelDetails() {
             </Table>            
           </Tab>       
         </Tabs> 
-        <ConfirmModal modalHeading={modalDelete} show={show} handleClose={handleClose} handleConfirm={handleConfirm} reservationInfo={reservationInfo} />
+        <ConfirmModal modalHeading={modalDelete} show={show} handleClose={handleClose} handleConfirm={handleConfirm} reservationInfo={reservationInfo} redBtn={true}/>
       </Col>
     </Row>
   );

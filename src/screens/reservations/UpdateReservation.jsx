@@ -52,8 +52,6 @@ function UpdateReservation() {
     "Beliatta"
   ];
 
-  console.log('update', reservation);
-
   return (
     <Row className="justify-content-center">
       <Col className="col-6">

@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function ConfirmModal({ modalHeading, show, handleClose, handleConfirm, reservationInfo }) {
+function ConfirmModal({ modalHeading, show, handleClose, handleConfirm, reservationInfo, redBtn }) {
   
   return ( 
     <Modal show={show} onHide={handleClose}>
@@ -24,7 +24,7 @@ function ConfirmModal({ modalHeading, show, handleClose, handleConfirm, reservat
         <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="primary" onClick={handleConfirm}>
+        <Button variant={redBtn ? "danger" : "primary"} onClick={handleConfirm}>
           {/* Confirm Rerservation */}
           {modalHeading}
         </Button>

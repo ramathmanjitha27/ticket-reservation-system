@@ -14,41 +14,13 @@ function CheckAvailability({ reservation, returnTrip, modalHeading }) {
   const { getTrainAvailability } = useReservation();
 
 
-  const getAvailabilityDetails = async () => {
-    console.log(reservation);
-    // const trainData = await getTrainAvailability(reservation.departure, reservation.arrival, reservation.date, reservation.ticketClass, reservation.ticketCount);
-    // setTrains(trainData);
-    // console.log("trains", trains);
-
-    setTrains([
-      {
-        id: "65243805b42b75b9309e688d",
-        name: "Train 3",
-        departureStation: "Colombo",
-        arrivalStation:"Matara",
-        isActive: true,
-        isPublished: true,
-        availableDates: ["Wednesday","Sunday"],
-        schedules: [
-          {station:"Colombo",arrivalTime:"14:40",departureTime:"14:50"},
-          {station:"Galle",arrivalTime:"16:00",departureTime:"16:10"},
-          {station:"Matara",arrivalTime:"17:53",departureTime:"18:00"}
-        ],
-        firstClassTickets: 30,
-        firstClassTicketsReserved:6,
-        secondClassTickets:30,
-        secondClassTicketsReserved:7,
-        thirdClassTickets:30,
-        thirdClassTicketsReserved:9
-      }
-
-    ]);
-    console.log("trains", trains);
-
+  const getAvailabilityDetails = async () => {   
+    const trainData = await getTrainAvailability(reservation.departure, reservation.arrival, reservation.date, reservation.ticketClass, reservation.ticketCount);
+    setTrains(trainData);
+    
     if(returnTrip) {
       const returnTrainData = await getTrainAvailability(reservation.arrival, reservation.departure, reservation.returnDate, reservation.ticketClass, reservation.ticketCount);
-      setReturnTrains(returnTrainData);
-      console.log("returnTrains", returnTrains);
+      setReturnTrains(returnTrainData);      
     }
   }    
 
@@ -74,7 +46,7 @@ function CheckAvailability({ reservation, returnTrip, modalHeading }) {
         >   
           <Tab eventKey="oneWayTrip" title="One Way Trip">
             <h5>{reservation.departure} <AiOutlineArrowRight /> {reservation.arrival}</h5>
-            <p>Date: {reservation.date}</p>
+            <p>Date: {reservation.date.split("T")[0]}</p>
             <TrainsList departure={reservation.departure} arrival={reservation.arrival} date={reservation.date} reservation={reservation} trains={trains} modalHeading={modalHeading}/>
           </Tab>   
           <Tab eventKey="returnTrip" title="Return Trip" disabled={returnTrip ? false : true}>

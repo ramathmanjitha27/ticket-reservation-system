@@ -34,9 +34,7 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
       const newDate = new Date(Date.parse(reservationInfo.date));
       const isoString = newDate.toISOString();
       reservationInfo.date = isoString;
-
-      console.log("post", reservationInfo);    
-
+  
       const responseData = await addReservation(reservationInfo);
 
       alert(responseData);
@@ -51,11 +49,12 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
       const isoString = newDate.toISOString();
       reservationInfo.date = isoString;
 
-      reservationInfo.id = reservation.id;
+      reservationInfo.id = reservation.id;   
 
-      console.log("update", reservationInfo);
+      const responseData = await updateReservation(reservationInfo.id, reservationInfo);
+      alert(responseData);
+      navigate('/reservations/details');
 
-      // const responseData = await updateReservation(reservationInfo);
       // Update train ticket count here
     }
     setShow(false)
@@ -91,8 +90,7 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
               <td>{reservation.ticketCount}</td>
               <td><Button variant="primary" onClick={() => {
                 reservationInfo.trainId = train.id;
-                setTrainId(train.id);
-                console.log("test data", reservationInfo);                
+                setTrainId(train.id);                            
                 handleShow();
               }}>
                 Confirm
@@ -101,7 +99,7 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
           ))}
         </tbody>
       </Table>
-      <ConfirmModal modalHeading={modalHeading} show={show} handleClose={handleClose} handleConfirm={handleConfirm} reservationInfo={reservationInfo} />
+      <ConfirmModal modalHeading={modalHeading} show={show} handleClose={handleClose} handleConfirm={handleConfirm} reservationInfo={reservationInfo} redBtn={false}/>
     </>  
   );
 }

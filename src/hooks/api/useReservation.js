@@ -24,6 +24,16 @@ export const useReservation = () => {
     }
   };
 
+  const deleteReservation = async (resId) => {
+    try {
+      const response = await axios.delete(BACKEND_URL + "/" + resId);
+      return "Reservation deleted successfully!";
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+
   const getTravelHistoryById = async (travelerId) => {
     try {
       const response = await axios.get(BACKEND_URL + "/traveler/" + travelerId + "/history");
@@ -43,16 +53,6 @@ export const useReservation = () => {
       return error.message;
     }
   };
-
-  const deleteReservation = async (resId) => {
-    try {
-      const response = await axios.delete(BACKEND_URL + "/" + resId);
-      return "Reservation deleted successfully!";
-    } catch (error) {
-      console.log(error);
-      return error.message;
-    }
-  }
 
   const getTrainAvailability = async (departure, arrival, date, ticketClass, ticketCount) => {
     const url = "https://localhost:7015/api/trains/availability";
@@ -75,9 +75,9 @@ export const useReservation = () => {
   return {
     addReservation,
     updateReservation,
+    deleteReservation,
     getTravelHistoryById,
     getUpcomingTravelById,
-    getAllReservations,
     getTrainAvailability,
   };
 };
