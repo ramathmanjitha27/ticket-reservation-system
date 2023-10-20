@@ -106,7 +106,7 @@ function TravelDetails() {
                   <th>Arrival</th>
                   <th>Date</th>
                   <th>Time of Departure</th>
-                  <th>Train ID</th>
+                  {/* <th>Train ID</th> */}
                   <th>Ticket Class</th>
                   <th>Ticket Count</th>
                   <th>Actions</th>
@@ -122,9 +122,9 @@ function TravelDetails() {
                     <tr key={trip.id}>
                       <td>{trip.departure}</td>
                       <td>{trip.arrival}</td>
-                      <td>{trip.date}</td>
+                      <td>{trip.date.split("T")[0]}</td>
                       <td>{trip.time}</td>
-                      <td>{trip.trainId}</td>
+                      {/* <td>{trip.trainId}</td> */}
                       <td>{trip.ticketClass}</td>
                       <td>{trip.ticketCount}</td>
                       <td>
@@ -174,7 +174,7 @@ function TravelDetails() {
                   <th>Arrival</th>
                   <th>Date</th>
                   <th>Time of Departure</th>
-                  <th>Train ID</th>
+                  {/* <th>Train ID</th> */}
                   <th>Ticket Class</th>
                   <th>Ticket Count</th>
                 </tr>
@@ -184,9 +184,9 @@ function TravelDetails() {
                   <tr key={trip.id}>
                     <td>{trip.departure}</td>
                     <td>{trip.arrival}</td>
-                    <td>{trip.date}</td>
+                    <td>{trip.date.split("T")[0]}</td>
                     <td>{trip.time}</td>
-                    <td>{trip.trainId}</td>
+                    {/* <td>{trip.trainId}</td> */}
                     <td>{trip.ticketClass}</td>
                     <td>{trip.ticketCount}</td>
                   </tr>

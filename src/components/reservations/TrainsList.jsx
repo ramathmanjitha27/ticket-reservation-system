@@ -21,7 +21,7 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
     travelerId: reservation.travelerId,
   };
 
-  const { addReservation } = useReservation();
+  const { addReservation, updateReservation } = useReservation();
   const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
@@ -46,6 +46,16 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
 
     } else {
       // Update reservation here
+      reservationInfo.trainId = trainId;
+      const newDate = new Date(Date.parse(reservationInfo.date));
+      const isoString = newDate.toISOString();
+      reservationInfo.date = isoString;
+
+      reservationInfo.id = reservation.id;
+
+      console.log("update", reservationInfo);
+
+      // const responseData = await updateReservation(reservationInfo);
       // Update train ticket count here
     }
     setShow(false)

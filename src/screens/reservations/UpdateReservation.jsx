@@ -52,7 +52,7 @@ function UpdateReservation() {
     "Beliatta"
   ];
 
-  
+  console.log('update', reservation);
 
   return (
     <Row className="justify-content-center">
@@ -125,7 +125,7 @@ function UpdateReservation() {
               type="date"
               name="date"
               placeholder="Pick Date"
-              value={reservation.date}
+              value={reservation.date.split("T")[0]}
               onChange={handleChange}
               min={new Date().toISOString().slice(0, 10)}
               max={new Date(new Date().setDate(new Date().getDate() + 30)).toISOString().slice(0, 10)}
