@@ -72,6 +72,25 @@ export const useReservation = () => {
     }
   };
 
+  const updateTicketCount = async (trainId, ticketClass, ticketCount, ticketAction) => {
+    const url = "https://localhost:7015/api/trains/updateCount/" + trainId;
+    console.log(url);
+    console.log(trainId, ticketClass, ticketCount, ticketAction);
+    const params = {
+      ticketClass,
+      ticketCount,
+      ticketAction
+    };
+    try {
+      const response = await axios.put(url, { params });
+      return "Ticket count updated";
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }  
+    
+
   return {
     addReservation,
     updateReservation,
@@ -79,5 +98,6 @@ export const useReservation = () => {
     getTravelHistoryById,
     getUpcomingTravelById,
     getTrainAvailability,
+    updateTicketCount
   };
 };

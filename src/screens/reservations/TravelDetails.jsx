@@ -56,6 +56,9 @@ function TravelDetails() {
   const handleConfirm = async () => {
     // delete reservation here
     const responseData = await deleteReservation(resId);
+
+    // update train ticket count
+
     alert(responseData);
     setShow(false)
     // get travel details - upcoming

@@ -21,7 +21,7 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
     travelerId: reservation.travelerId,
   };
 
-  const { addReservation, updateReservation } = useReservation();
+  const { addReservation, updateReservation, updateTicketCount } = useReservation();
   const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
@@ -37,11 +37,12 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
   
       const responseData = await addReservation(reservationInfo);
 
-      alert(responseData);
-      navigate('/reservations/new');
-
       // Update train ticket count here
+      // const ticketResponse = await updateTicketCount(trainId, reservationInfo.ticketClass, reservationInfo.ticketCount, true);
+      // console.log(ticketResponse);
 
+      alert(responseData);
+      navigate('/');
     } else {
       // Update reservation here
       reservationInfo.trainId = trainId;
@@ -52,10 +53,11 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
       reservationInfo.id = reservation.id;   
 
       const responseData = await updateReservation(reservationInfo.id, reservationInfo);
+      
+      // Update train ticket count here
+
       alert(responseData);
       navigate('/reservations/details');
-
-      // Update train ticket count here
     }
     setShow(false)
   };
