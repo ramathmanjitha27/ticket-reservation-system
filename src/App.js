@@ -14,6 +14,7 @@ import StaffLogin from "./screens/authentication/StaffLogin";
 import TrainList from "./screens/train-managment/train-list";
 import EditTrain from "./screens/train-managment/edit-train";
 import HomePage from "./screens/home/HomePage";
+import Travelerlist from "./screens/traveler/traveler-list";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="create-train" element={<CreateTrain />} />
             <Route path="edit-train" element={<EditTrain />} />
             <Route path="trains" element={<TrainList />} />
+            <Route path="travelers" element={<Travelerlist />} />
             <Route path="reservations/*">
               <Route path="new" element={<MakeReservation />} />
               <Route path="update" element={<UpdateReservation />} />
