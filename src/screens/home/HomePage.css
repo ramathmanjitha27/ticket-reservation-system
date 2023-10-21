@@ -1,0 +1,23 @@
+/* HomePage.css */
+.train-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.train-button:hover {
+  .train-image {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.train-image {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 100%; /* Start position for the transition */
+  left: 0;
+  opacity: 0;
+  transform: translateY(-100%); /* Initial position for the transition */
+  transition: opacity 0.3s, transform 0.3s;
+}
