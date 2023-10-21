@@ -81,7 +81,7 @@ const EditTrain = () => {
 
     if (responseData) {
       toast.success("Train update successful");
-      navigate("/trains");
+      navigate("/staff/trains");
     } else {
       toast.error("Train update unsuccessful");
     }

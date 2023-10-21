@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import {Link } from "react-router-dom";
-import { Row, Col } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+import { Link } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
-import ReservationForm from '../../components/reservations/ReservationForm';
-import CheckAvailability from '../../components/reservations/CheckAvailability';
+import ReservationForm from "../../components/reservations/ReservationForm";
+import CheckAvailability from "../../components/reservations/CheckAvailability";
 
 function MakeReservation() {
   const [reservation, setReservation] = useState({
@@ -24,31 +24,44 @@ function MakeReservation() {
   return (
     <Row className="justify-content-center">
       <Col className="col-6">
-        <h2 style={{
-          marginTop: "90px",
-          marginBottom: "30px"
-        }}>
-            Reserve Train Tickets
+        <h2
+          style={{
+            marginTop: "90px",
+            marginBottom: "30px",
+          }}
+        >
+          Reserve Train Tickets
         </h2>
         {showAvailability ? (
           <>
-          <CheckAvailability reservation={reservation} returnTrip={returnTrip} modalHeading={modalHeading}/>
-          <Button onClick={() => setShowAvailability(false)}>Return to Reservation Form</Button>
+            <CheckAvailability
+              reservation={reservation}
+              returnTrip={returnTrip}
+              modalHeading={modalHeading}
+            />
+            <Button onClick={() => setShowAvailability(false)}>
+              Return to Reservation Form
+            </Button>
           </>
         ) : (
-          <ReservationForm reservation={reservation} setReservation={setReservation} returnTrip={returnTrip} setReturnTrip={setReturnTrip} setShowAvailability={setShowAvailability}/>
+          <ReservationForm
+            reservation={reservation}
+            setReservation={setReservation}
+            returnTrip={returnTrip}
+            setReturnTrip={setReturnTrip}
+            setShowAvailability={setShowAvailability}
+          />
         )}
         <Row>
-          <Link to="/reservations/details">
-            <Button variant="Info" style={{marginTop: "10px"}}>
+          <Link to="/staff/reservations/details">
+            <Button variant="Info" style={{ marginTop: "10px" }}>
               View Traveler Reservation Details
             </Button>
           </Link>
-        </Row>  
+        </Row>
       </Col>
     </Row>
-  )
+  );
 }
 
 export default MakeReservation;
-

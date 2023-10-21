@@ -95,7 +95,7 @@ const TrainList = () => {
               <Col sm={12} md={6} lg={8}>
                 <Button
                   variant="info"
-                  onClick={() => navigate("/create-train")}
+                  onClick={() => navigate("/staff/create-train")}
                 >
                   Create Train
                 </Button>
@@ -136,7 +136,7 @@ const TrainList = () => {
                               <Button
                                 variant="primary"
                                 onClick={() =>
-                                  navigate("/edit-train", {
+                                  navigate("/staff/edit-train", {
                                     state: {
                                       train,
                                     },

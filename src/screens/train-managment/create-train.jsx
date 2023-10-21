@@ -105,7 +105,7 @@ const CreateTrain = () => {
 
     if (responseData) {
       toast.success("Train creation Successful");
-      navigate("/trains");
+      navigate("/staff/trains");
       clearForm();
     } else {
       toast.error("Train creation unsuccessful");
