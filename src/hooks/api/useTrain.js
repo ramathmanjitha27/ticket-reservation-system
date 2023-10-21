@@ -1,10 +1,9 @@
 import axios from "axios";
-// import { BACKEND_URL } from "../../constants/apiConstant";
+import { BACKEND_URL_STAFF } from "../../constants/apiConstanst";
 
 // Define a set of functions related to train data management
 export const useTrain = () => {
-  const BACKEND_URL = "https://localhost:7015/api/staff";
-  const TRAIN_API_URL = BACKEND_URL + "/trains";
+  const TRAIN_API_URL = BACKEND_URL_STAFF + "/trains";
 
   // Function to create a new train
   const createTrain = async (newTrain) => {

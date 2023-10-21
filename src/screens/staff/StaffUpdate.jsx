@@ -15,6 +15,8 @@ import { useStaff } from "../../hooks/api/useStaff";
 const StaffUpdate = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Fetch the 'updateStaffMember' function from a custom hook
   const { updateStaffMember } = useStaff();
 
   const [fullName, setFullName] = useState(location.state?.fullName || "");
@@ -31,40 +33,47 @@ const StaffUpdate = () => {
   );
   const [staffId, setStaffId] = useState("652729a0aa4a0ec253b4c68e");
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if entered password matches the confirmation password
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
+    // Check if the password is at least 8 characters long
     if (password.length < 8) {
       alert("Password must be at least 8 characters");
       return;
     }
 
+    // Check if at least one role is selected
     if (roles.length === 0) {
       alert("Please select at least one role");
       return;
     }
 
+    // Check if the email address is valid
     if (email.length < 5) {
       alert("Please enter a valid email address");
       return;
     }
 
+    // Check if a username is entered
     if (username.length === 0) {
       alert("Please insert a username");
       return;
     }
 
+    // Check if the full name is at least 5 characters long
     if (fullName.length < 5) {
       alert("Full name must be at least 5 characters");
       return;
     }
 
-    // make the backend call here...
+    // Prepare an object with user data to send to the backend
     const inputObj = {
       Id: staffId,
       Username: username,
@@ -76,6 +85,7 @@ const StaffUpdate = () => {
       TravelerIds: travelerIds,
     };
 
+    // Call the 'updateStaffMember' function to update user data on the backend
     const responseData = await updateStaffMember(staffId, inputObj);
 
     if (responseData) {
@@ -86,6 +96,7 @@ const StaffUpdate = () => {
     }
   };
 
+  // Handle the selection/deselection of roles
   const handleMultiSelect = (item) => {
     const isRoleSelected = roles.includes(item);
 
@@ -100,6 +111,7 @@ const StaffUpdate = () => {
     setRoles(newRoles);
   };
 
+  // Handle the cancel action, navigating back in the browser's history
   const onCancel = () => {
     window.history.back();
   };

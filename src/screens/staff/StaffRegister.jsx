@@ -22,35 +22,41 @@ const StaffRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if the password is at least 8 characters long
     if (password.length < 8) {
       alert("Password must be at least 8 characters");
       return;
     }
 
+    // Check if at least one role is selected
     if (roles.length === 0) {
       alert("Please select at least one role");
       return;
     }
 
+    // Check if the email address is valid
     if (email.length < 5) {
       alert("Please enter a valid email address");
       return;
     }
 
+    // Check if a username is entered
     if (username.length === 0) {
       alert("Please insert a username");
       return;
     }
 
+    // Check if the full name is at least 5 characters long
     if (fullName.length < 5) {
       alert("Full name must be at least 5 characters");
       return;
     }
 
-    // make the backend call here...
+    // Prepare an object with user data to send to the backend for registration
     const inputObj = {
       Username: username,
       FullName: fullName,
@@ -60,20 +66,23 @@ const StaffRegister = () => {
       IsActivated: true,
     };
 
+     // Call the 'registerStaffMember' function to register the staff member
     const responseData = await registerStaffMember(inputObj);
 
     if (responseData) {
       alert("You are successfully registered!");
-      navigete("/");
+      navigete("/staff/login");
     } else {
       alert("Staff member is not created successfully!, Please try again");
     }
   };
 
+  // Automatically select the "agent" role when the component is mounted
   useEffect(() => {
     handleMultiSelect("agent");
   }, []);
 
+  // Handle the selection/deselection of roles
   const handleMultiSelect = (item) => {
     const isRoleSelected = roles.includes(item);
 
@@ -93,6 +102,11 @@ const StaffRegister = () => {
       className="d-flex justify-content-center"
       style={{
         marginTop: "50px",
+        backgroundImage:
+          " url(https://www.tokkoro.com/picsup/2874687-nature-landscape-train-machine-smoke-trees-clouds-bridge-railway-mountain-steam-locomotive___landscape-nature-wallpapers.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "bottom",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <Card style={{ width: "85vh", minHeight: "85vh" }} className="my-5">
