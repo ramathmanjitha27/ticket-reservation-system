@@ -1,7 +1,8 @@
 import axios from "axios";
 import React from "react";
 
-const BACKEND_URL = "https://localhost:7015/api/reservations";
+// const BACKEND_URL = "https://localhost:7015/api/reservations";
+const BACKEND_URL = "http://192.168.8.158:81/api/reservations";
 
 export const useReservation = () => {
   const addReservation = async (newReservation) => {
@@ -55,8 +56,9 @@ export const useReservation = () => {
   };
 
   const getTrainAvailability = async (departure, arrival, date, ticketClass, ticketCount) => {
-    const url = "https://localhost:7015/api/trains/availability";
-    const params = {
+    // const url = "https://localhost:7015/api/trains/availability";
+    const url = "http://192.168.8.158:81/api/trains/availability";
+    const newSearch = {
       departure,
       arrival,
       date,
@@ -64,7 +66,7 @@ export const useReservation = () => {
       ticketCount
     };
     try {
-      const response = await axios.get(url, { params });
+      const response = await axios.post(url, newSearch);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -73,16 +75,18 @@ export const useReservation = () => {
   };
 
   const updateTicketCount = async (trainId, ticketClass, ticketCount, ticketAction) => {
-    const url = "https://localhost:7015/api/trains/updateCount/" + trainId;
+    // const url = "https://localhost:7015/api/trains/updateCount/" + trainId;
+    const url = "http://192.168.8.158:81/api/trains/updateCount/" + trainId;
     console.log(url);
     console.log(trainId, ticketClass, ticketCount, ticketAction);
-    const params = {
+    const countUpdate = {      
       ticketClass,
       ticketCount,
+      id: trainId,
       ticketAction
     };
     try {
-      const response = await axios.put(url, { params });
+      const response = await axios.put(url, countUpdate);
       return "Ticket count updated";
     } catch (error) {
       console.log(error);
