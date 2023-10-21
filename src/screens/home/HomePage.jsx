@@ -20,10 +20,7 @@ const HomePage = () => {
         }}
       >
         <Container>
-          <Row
-            className="justify-content-center align-items-center"
-            style={{ marginTop: "160px" }}
-          >
+          <Row className="justify-content-center align-items-center vh-100">
             <Col className="col-auto">
               <h1 style={{ color: "white", fontSize: "56px" }}>
                 Welcome to Train Management Web App
@@ -36,7 +33,7 @@ const HomePage = () => {
             </Col>
           </Row>
 
-          <Row
+          {/* <Row
             className="justify-content-center align-items-center"
             style={{ marginTop: "105px" }}
           >
@@ -76,7 +73,7 @@ const HomePage = () => {
                 />
               </div>
             </Col>
-          </Row>
+          </Row> */}
         </Container>
       </div>
     </div>
