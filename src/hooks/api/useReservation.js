@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 
 // const BACKEND_URL = "https://localhost:7015/api/reservations";
-const BACKEND_URL = "http://192.168.8.158:81/api/reservations";
+const BACKEND_URL = "http://192.168.8.100:82/api/reservations";
 
 export const useReservation = () => {
   const addReservation = async (newReservation) => {
@@ -57,7 +57,7 @@ export const useReservation = () => {
 
   const getTrainAvailability = async (departure, arrival, date, ticketClass, ticketCount) => {
     // const url = "https://localhost:7015/api/trains/availability";
-    const url = "http://192.168.8.158:81/api/trains/availability";
+    const url = "http://192.168.8.100:82/api/trains/availability";
     const newSearch = {
       departure,
       arrival,
@@ -76,7 +76,7 @@ export const useReservation = () => {
 
   const updateTicketCount = async (trainId, ticketClass, ticketCount, ticketAction) => {
     // const url = "https://localhost:7015/api/trains/updateCount/" + trainId;
-    const url = "http://192.168.8.158:81/api/trains/updateCount/" + trainId;
+    const url = "http://192.168.8.100:82/api/trains/updateCount/" + trainId;
     console.log(url);
     console.log(trainId, ticketClass, ticketCount, ticketAction);
     const countUpdate = {      

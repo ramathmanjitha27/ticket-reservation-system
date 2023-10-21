@@ -38,8 +38,8 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
       const responseData = await addReservation(reservationInfo);
 
       // Update train ticket count here
-      // const ticketResponse = await updateTicketCount(trainId, reservationInfo.ticketClass, reservationInfo.ticketCount, true);
-      // console.log(ticketResponse);
+      const ticketResponse = await updateTicketCount(trainId, reservationInfo.ticketClass, reservationInfo.ticketCount, true);
+      console.log(ticketResponse);
 
       alert(responseData);
       navigate('/');
@@ -55,6 +55,8 @@ function TrainsList({ departure, arrival, date, reservation, trains, modalHeadin
       const responseData = await updateReservation(reservationInfo.id, reservationInfo);
       
       // Update train ticket count here
+      const ticketResponse = await updateTicketCount(trainId, reservationInfo.ticketClass, reservationInfo.ticketCount, true);
+      console.log(ticketResponse);
 
       alert(responseData);
       navigate('/reservations/details');

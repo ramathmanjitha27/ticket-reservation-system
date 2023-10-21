@@ -26,7 +26,7 @@ function TravelDetails() {
   const [upcoming, setUpcoming] = useState([]);
   const [resId, setResId] = useState("");
 
-  const { getTravelHistoryById, getUpcomingTravelById, deleteReservation } = useReservation();
+  const { getTravelHistoryById, getUpcomingTravelById, deleteReservation, updateTicketCount } = useReservation();
 
   // get travel details - history
   const fetchTravelHistory = async () => {
@@ -58,7 +58,9 @@ function TravelDetails() {
     const responseData = await deleteReservation(resId);
 
     // update train ticket count
-
+    const ticketResponse = await updateTicketCount(reservationInfo.trainId, reservationInfo.ticketClass, reservationInfo.ticketCount, false);
+    console.log(ticketResponse);
+    
     alert(responseData);
     setShow(false)
     // get travel details - upcoming
